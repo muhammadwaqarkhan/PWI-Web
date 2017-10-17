@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+	xmlns:int-sftp="http://www.springframework.org/schema/integration/sftp"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd
+                http://www.springframework.org/schema/integration/sftp http://www.springframework.org/schema/integration/sftp/spring-integration-sftp.xsd
+                http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+                http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.0.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                http://www.springframework.org/schema/tx   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<context:component-scan base-package="com.pwi" />
+	
+	<context:annotation-config/>
+
+	<aop:aspectj-autoproxy />
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+ 
+       <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+          <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+          <property name="url" value="jdbc:mysql://localhost:3306/PWI" />
+          <property name="username" value="root" />
+          <property name="password" value="" />
+       </bean>
+       
+       
+       <bean id="serviceExecutor" class="com.pwi.services.framework.ServiceExecutor">
+           <property name="dataSource" ref="dataSource" />
+       </bean>
+ 
+       <bean id="transactionManager"
+           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+           <property name="dataSource" ref="dataSource" />
+       </bean>
+       
+      
+       
+       
+       
+</beans>                                       

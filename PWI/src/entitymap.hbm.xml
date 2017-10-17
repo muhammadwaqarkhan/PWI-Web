@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+
+    <class name="com.pwi.domain.user.UserAccounts" table="useraccounts" catalog="pwi">
+        <id name="userId" type="java.lang.Long">
+            <column name="userId" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="string">
+            <column name="userName" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="20" not-null="true" unique="true" />
+        </property>
+    </class>
+    
+    
+     <class name="com.pwi.domain.branch.Branch" table="branch" catalog="pwi">
+        <id name="branchID" type="java.lang.Long">
+            <column name="branchID" />
+            <generator class="identity" />
+        </id>
+        <property name="branchName" type="string">
+            <column name="branchName" length="10" not-null="true" unique="true" />
+        </property>
+        <one-to-one name="address" cascade="save-update"></one-to-one>  
+        
+    </class>
+    
+    <class name="com.pwi.domain.address.Address" table="ADDRESS" catalog="pwi">
+		<meta attribute="class-description">This class contains the student's address
+			details.</meta>
+		<id name="addressID" type="long" column="addressID">
+			<generator class="identity" />
+		</id>
+		<property name="street" column="street" type="string" length="250" />
+		<property name="city" column="city" type="string" length="50" />
+		<property name="postCode" column="postCode" type="string" length="50" />
+		<property name="country" column="country" type="string" length="10" />
+	</class>
+    
+    
+</hibernate-mapping>
