@@ -2,6 +2,8 @@ package com.pwi.services.ui.pageHandlers.branch;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.constants.FrameNames;
 import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dto.BaseOutDTO;
@@ -13,7 +15,7 @@ import com.pwi.services.branch.dto.BranchDTO;
 import com.pwi.services.branch.dto.BranchOutDTO;
 import com.pwi.services.framework.ServiceExecutor;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
-
+@Component
 public class BranchPageHandler  implements IPageHandler {
 
 	@Override
@@ -76,7 +78,7 @@ public class BranchPageHandler  implements IPageHandler {
 		ServiceBase service = new BranchService();
 		Object object = executor.callService(service, "SaveBranch", inDTO);
 		
-		if(object instanceof BranchDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
 		{
 			return getBranch(request);
 		}

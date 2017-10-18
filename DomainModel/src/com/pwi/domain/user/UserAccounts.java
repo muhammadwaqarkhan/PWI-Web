@@ -9,11 +9,25 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import com.pwi.domain.interfaces.IDomain;
 /**
  * Holds all data which is relevant to UserAccounts 
  *  @author Waqar Contact 03346100977
  */
+
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	        name = UserAccounts.Queries.READ_BY_USER_PASSWORD,  
+	        query = "from com.pwi.domain.user.UserAccounts where userName=:userName and password=:password"  
+	        )  
+	    }  
+)  
+
 @Entity()
 @Table(name = "UserAccounts", schema = "pwi")
 public class UserAccounts implements IDomain{
@@ -22,9 +36,7 @@ public class UserAccounts implements IDomain{
 	
 	private static final int	USERNAME_LENGTH					= 100;
 	private static final int	PASSWORD_LENGTH					= 45;
-	private static final int	FIRST_NAME_LENGTH				= 45;
-	private static final int	LAST_NAME_LENGTH				= 45;
-	private static final int	ISLOCKED_LENGTH					= 1;
+
 
 	@Column(name = "USERID", insertable = false, updatable = false, nullable = false)
 	@GeneratedValue(strategy=GenerationType.AUTO)

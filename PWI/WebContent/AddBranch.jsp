@@ -41,7 +41,7 @@
 <script type="text/javascript" src="AddBranch.js"></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/interface/BranchAjaxHandler.js'></script>
-
+<script type="text/javascript" src="resources/javascript/validation/IValidation.js"></script>
 <script type="text/javascript" src="resources/javascript/menu.js"></script>	
 
 <script>
@@ -131,7 +131,7 @@
 							<input type="hidden" id="selectedbranchId" name="selectedbranchId" value=""/>
 						</div>
 						
-						<input type="submit" value="Add Branch" name="Save" onclick="setAction (1);">
+						<input type="submit" value="Add Branch" name="Save" onclick="return setAction (1);">
 						<input type="button" id="Delete" name="Delete" value="Delete Branch" onclick="return setAction (2);">
 						<input type="button" id="update" name="update" value="Update Branch" onclick="return setAction (3);">		
 					

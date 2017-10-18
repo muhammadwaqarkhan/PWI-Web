@@ -95,5 +95,20 @@
 	<classpathentry kind="lib" path="/BaseJar/rest/osgi-resource-locator-1.0.1.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/rest/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/JarStore/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/dbunit-2.4.7.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/easymock-3.4.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/easymockclassextension-3.2.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/objenesis-1.2.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/org.springframework.test-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/powermock-classloading-xstream-1.6.4.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/powermock-easymock-1.6.4-full.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/unittest/powermock-mockito-1.6.4-full.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/spring/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/spring/freemarker.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/aop/aspectjtools.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/aop/aspectjweaver.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/aop/org.aspectj.matcher.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -7,5 +7,6 @@ public class BaseOutDTO extends BaseDTO{
 	public BaseOutDTO()
 	{
 		setErrorCode(FrameworkReasonCodes.EXECUTION_ERROR);
+		
 	}
 }

@@ -3,8 +3,11 @@ package com.pwi.services.branch.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pwi.dto.BaseDTO;
+import org.springframework.stereotype.Component;
 
+import com.pwi.dto.BaseDTO;
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class BranchOutDTO extends BaseDTO 
 {
 	
@@ -15,6 +18,9 @@ public class BranchOutDTO extends BaseDTO
 	
 
 	List<BranchDTO> branches = new ArrayList<BranchDTO>();
+	
+	
+	
 
 	public List<BranchDTO>  getBranches() {
 		return branches;

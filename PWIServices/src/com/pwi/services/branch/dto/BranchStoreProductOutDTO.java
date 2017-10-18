@@ -3,9 +3,11 @@ package com.pwi.services.branch.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.domain.product.store.StoreProduct;
 import com.pwi.dto.BaseDTO;
-
+@Component
 public class BranchStoreProductOutDTO extends BaseDTO 
 {
 	

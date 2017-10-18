@@ -2,7 +2,10 @@ package com.pwi.services.ui.pageHandlers.login;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.constants.FrameNames;
+import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dto.BaseOutDTO;
 import com.pwi.interfaces.IPageHandler;
 import com.pwi.interfaces.IResponseHandler;
@@ -22,8 +25,19 @@ public class LoginPageHandler   implements IPageHandler {
 		String password = request.getParameter("password");
 
 		IResponseHandler response = verifyUser(userName, password);
-		response.setNavURL(getNavUrl(request));
-		return response;
+		
+		if(response.getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		{
+			response.setNavURL(getNavUrl(request));
+			return response;
+		}
+		else
+		{
+			response.setNavURL("login.jsp");
+			request.setAttribute("iErrorPanel", response.getErrorString());
+			return response;
+		}
+
 	}
 
 	@Override
@@ -43,11 +57,13 @@ public class LoginPageHandler   implements IPageHandler {
 		ServiceBase service = new UserAccountsService();
 		
 		Object object = executor.callService(service, "VarifedUser", inDTO);
-		if(object instanceof UserAccountsOutDTO)
+		if(object instanceof IResponseHandler )
 		{
 			return (UserAccountsOutDTO)object;
-			
 		}
+		
+	
+		
 		BaseOutDTO errorOutDTO = new BaseOutDTO();
 		return errorOutDTO;
 	}

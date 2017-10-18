@@ -13,17 +13,46 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+import com.pwi.domain.branch.Branch;
 import com.pwi.domain.brand.product.BrandProduct;
 /**
  * Holds all data which is relevant to Company 
  *  @author Waqar Contact 03346100977
  */
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	        name = Brand.Queries.READ_BY_ALL_BRANDS,  
+	        query = "from com.pwi.domain.brand.Brand"  
+	        ) ,//
+	        
+	        @NamedQuery(  
+	    	        name = Brand.Queries.READ_BY_PRIMARY_KEY,  
+	    	        query = "from com.pwi.domain.brand.Brand where brandID=:brandID"  
+	    	        ) 
+	    }  
+)
+
+
 @Entity()
 @Table(name = "Brands", schema = "pwi")
 public class Brand {
 
 	
 	private static final int	BRAND_NAME_LENGTH				= 45;
+	
+	
+	public static class Queries
+	{
+		public static final String	READ_BY_ALL_BRANDS= "Brand.ReadBrand";
+		public static final String	READ_BY_PRIMARY_KEY	= "Brand.ReadPrimaryKey";
+		
+		
+	}
 	
 	
 	@Column(name = "brandID", insertable = false, updatable = false, nullable = false)

@@ -25,26 +25,17 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
  
-       <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-          <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-          <property name="url" value="jdbc:mysql://localhost:3306/PWI" />
-          <property name="username" value="root" />
-          <property name="password" value="" />
-       </bean>
        
-       
-       <bean id="serviceExecutor" class="com.pwi.services.framework.ServiceExecutor">
-           <property name="dataSource" ref="dataSource" />
-       </bean>
- 
-       <bean id="transactionManager"
-           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-           <property name="dataSource" ref="dataSource" />
-       </bean>
-       
+       <bean id="branchDAO" class="com.pwi.dao.branch.BranchDAO" ></bean>
+       <bean id="brandDAO" class="com.pwi.dao.brand.BrandDAO"></bean>
+ 	   <bean id="companyDAO" class="com.pwi.dao.company.CompanyDAO"></bean>
+       <bean id="productDAO" class="com.pwi.dao.product.ProductDAO"></bean>
+       <bean id="storeDAO" class="com.pwi.dao.store.StoreDAO"></bean>
+       <bean id="userDAO" class="com.pwi.dao.user.UserAccountsDAO"></bean>
+       <bean id="brandProductDAO" class="com.pwi.dao.brand.product.BrandProductDAO"></bean>
+       <bean id="storeProductDAO" class="com.pwi.dao.store.product.StoreProductDAO"></bean>
       
-       <import resource="classpath:PWI-DAO-Beans.xml"/>
-       <import resource="classpath:PWI-Page-Handler.xml"/>
+       
+       
        
 </beans>                                       

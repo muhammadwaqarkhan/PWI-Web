@@ -11,7 +11,7 @@
 <body>
 
 	<div id="loginPage" align="center">
-
+	<div id="iErrorPanel" style="margin-left: -100; color: red;" name="iErrorPanel">${iErrorPanel}</div>
 		<form id="LoginPage" action="ApplicationServlet" method="post">
 
 			<div id="main">

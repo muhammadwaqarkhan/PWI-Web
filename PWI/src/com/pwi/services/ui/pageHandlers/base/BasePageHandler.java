@@ -1,23 +1,18 @@
 package com.pwi.services.ui.pageHandlers.base;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.pwi.services.framework.ServiceExecutor;
+import com.pwi.spring.SpringApplicationContext;
 
 public class BasePageHandler 
 {
-	private static ApplicationContext context;
+
 	private BasePageHandler()
 	{
-		//make is singalton
+		//no ne
 	}
 	public static ServiceExecutor getServiceExecutor()
 	{
-		if(context ==null)
-			context = new ClassPathXmlApplicationContext("beans.xml");
-		
-		ServiceExecutor executor = (ServiceExecutor) context.getBean("serviceExecutor");
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getApplicationContext().getBean("serviceExecutor");
 		
 		return executor;
 	}

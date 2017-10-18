@@ -6,7 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.pwi.dao.base.BaseDAO;
+import com.pwi.domain.branch.Branch;
 import com.pwi.domain.brand.Brand;
+import com.pwi.spring.SpringApplicationContext;
 /**
  * 
  * create BrandDAO class to read queries for brand table
@@ -18,7 +20,7 @@ public class BrandDAO extends BaseDAO implements IBrandDAO
 
 	public static BrandDAO getInstance (Session session)
 	{
-		BrandDAO singleton= new BrandDAO ();
+		BrandDAO singleton= (BrandDAO)SpringApplicationContext.getApplicationContext().getBean("brandDAO");
 		singleton.init(session);
 		return singleton;
 	}
@@ -34,10 +36,9 @@ public class BrandDAO extends BaseDAO implements IBrandDAO
 	@Override
 	public List<Brand> readBrands() 
 	{
-		String hql = "from com.pwi.domain.brand.Brand";
-		
-		Query query = getSession().createQuery(hql);
-		
+		//String hql = "from com.pwi.domain.brand.Brand";
+				
+		Query query = getSession().getNamedQuery(Brand.Queries.READ_BY_ALL_BRANDS);  
 		return query.list();
 
 	}
@@ -52,7 +53,8 @@ public class BrandDAO extends BaseDAO implements IBrandDAO
 	@Override
 	public Brand findByPrimaryKey(Long key) {
 		
-		Query query = getSession().createQuery("from com.pwi.domain.brand.Brand where brandID=:brandID");
+		//Query query = getSession().createQuery("from com.pwi.domain.brand.Brand where brandID=:brandID");
+		Query query = getSession().getNamedQuery(Brand.Queries.READ_BY_PRIMARY_KEY); 
 		query.setParameter("brandID", key);
 		return (Brand) query.uniqueResult();
 	}

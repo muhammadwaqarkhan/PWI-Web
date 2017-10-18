@@ -1,8 +1,11 @@
 package com.pwi.services.address.dto;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.dto.BaseDTO;
 import com.pwi.interfaces.IResponseHandler;
-
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class AddressDTO extends BaseDTO implements IResponseHandler
 {
 
@@ -15,6 +18,9 @@ public class AddressDTO extends BaseDTO implements IResponseHandler
 	private String 			postalCode;
 	private String 			country;
 	private Long 			addressID;
+	
+	
+	
 	public String getStreet() {
 		return street;
 	}

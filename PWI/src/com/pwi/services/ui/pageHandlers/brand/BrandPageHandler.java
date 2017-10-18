@@ -2,6 +2,8 @@ package com.pwi.services.ui.pageHandlers.brand;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.constants.FrameNames;
 import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dto.BaseOutDTO;

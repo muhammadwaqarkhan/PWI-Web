@@ -15,19 +15,54 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import com.pwi.domain.address.Address;
 import com.pwi.domain.company.Company;
 import com.pwi.domain.store.Store;
+import com.pwi.domain.user.UserAccounts;
 /**
  * Holds all data which is relevant to Branch 
  *  @author Waqar Contact 03346100977
  */
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	        name = Branch.Queries.READ_BY_ALL_BRANCHS,  
+	        query = "from com.pwi.domain.branch.Branch where status=:status"  
+	        ) ,//
+	        
+	        @NamedQuery(  
+	    	        name = Branch.Queries.READ_BY_PRIMARY_KEY,  
+	    	        query = "from com.pwi.domain.branch.Branch where branchID=:branchID"  
+	    	        ) ,//
+	    	        
+	       @NamedQuery(  
+	    	     name = Branch.Queries.READ_BY_BRANCH_NAME,  
+	    	     query = "from com.pwi.domain.branch.Branch where branchName=:branchName"  
+	    	     ) 
+	    	        
+	    }  
+)
+
 @Entity()
 @Table(name = "Branch", schema = "pwi")
 public class Branch {
 
 	
 	private static final int	BRANCH_LENGTH				= 45;
+	
+	
+
+	public static class Queries
+	{
+		public static final String	READ_BY_ALL_BRANCHS	= "Branch.ReadBranches";
+		public static final String	READ_BY_PRIMARY_KEY	= "Branch.ReadPrimaryKey";
+		public static final String	READ_BY_BRANCH_NAME	= "Branch.ReadBranchName";
+		
+	}
+
 	
 	@Column(name = "BRANCHID", insertable = false, updatable = false, nullable = false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -45,7 +80,7 @@ public class Branch {
 	
 	
 	@OneToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "addressID", referencedColumnName = "addressID")
+	@JoinColumn(name = "addressID", referencedColumnName = "addressID", insertable=true, updatable=true)
 	private Address				address					= null;
 	
 	

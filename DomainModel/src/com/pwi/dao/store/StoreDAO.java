@@ -7,14 +7,15 @@ import org.hibernate.Session;
 
 import com.pwi.dao.base.BaseDAO;
 import com.pwi.domain.store.Store;
+import com.pwi.spring.SpringApplicationContext;
 
 public class StoreDAO extends BaseDAO implements IStoreDAO{
 
 	public static StoreDAO getInstance (Session session)
 	{
-		StoreDAO singleton= new StoreDAO();
-		singleton.init(session);
-		return singleton;
+		StoreDAO dao= (StoreDAO)SpringApplicationContext.getApplicationContext().getBean("storeDAO");
+		dao.init(session);
+		return dao;
 	}
 	
 	
@@ -27,9 +28,9 @@ public class StoreDAO extends BaseDAO implements IStoreDAO{
 	 */
 	@Override
 	public Store findByPrimaryKey(Long storeID) {
-	String hql = "from Store where storeID=:storeID";
+		//String hql = "from Store where storeID=:storeID";
 		
-		Query query = getSession().createQuery(hql);
+		Query query = getSession().getNamedQuery(Store.Queries.READ_BY_PRIMARY_KEY);  
 		query.setParameter("storeID", storeID);
 		return (Store)query.uniqueResult();
 
@@ -46,8 +47,9 @@ public class StoreDAO extends BaseDAO implements IStoreDAO{
 	@Override
 	public List<Store> readStores() 
 	{
-		String hql = "from Store ";
-		Query query = getSession().createQuery(hql);
+		//String hql = "from Store ";
+
+		Query query = getSession().getNamedQuery(Store.Queries.READ_BY_ALL_STORE);  
 		return query.list();
 	}
 

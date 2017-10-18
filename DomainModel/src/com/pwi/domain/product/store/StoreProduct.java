@@ -10,17 +10,59 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import com.pwi.constants.PWICodes;
+import com.pwi.domain.brand.Brand;
 import com.pwi.domain.product.Product;
 import com.pwi.domain.store.Store;
 /**
  * Holds all data which is relevant to StoreProduct 
  *  @author Waqar Contact 03346100977
  */
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	        name = StoreProduct.Queries.READ_BY_ALL_STORE_PRODUCT,  
+	        query = "from StoreProduct"  
+	        ) ,//
+	        
+	        @NamedQuery(  
+	    	        name = StoreProduct.Queries.READ_BY_PRIMARY_KEY,  
+	    	        query = "from StoreProduct where storeProductID=:storeProductID"  
+	    	) ,//
+	        @NamedQuery(  
+	    	        name = StoreProduct.Queries.READ_BY_STORE_ID,  
+	    	        query = "from StoreProduct where storeID=:storeID"  
+	    	) ,//
+	        @NamedQuery(  
+	    	        name = StoreProduct.Queries.READ_BY_PRODUCT_ID,  
+	    	        query = "from StoreProduct where productID=:productID"  
+	    	)
+	        ,//
+	        @NamedQuery(  
+	    	        name = StoreProduct.Queries.READ_BY_STORE_PRODUCT_ID,  
+	    	        query = "from StoreProduct where productID=:productID and storeID=:storeID"  
+	    	)
+	    }  
+)
 @Entity()
 @Table(name = "StoreProduct", schema = "pwi")
 public class StoreProduct {
 
+	public static class Queries
+	{
+		public static final String	READ_BY_ALL_STORE_PRODUCT= "StoreProduct.ReadStoreProducts";
+		public static final String	READ_BY_PRIMARY_KEY	= "StoreProduct.ReadPrimaryKey";
+		public static final String	READ_BY_STORE_ID	= "StoreProduct.ReadStoreID";
+		public static final String	READ_BY_PRODUCT_ID	= "StoreProduct.ReadProductID";
+		public static final String	READ_BY_STORE_PRODUCT_ID	= "StoreProduct.ReadStoreProductID";
+		
+		
+	}
+	
 	private static final int	INSTOCK_LENGTH					= 1;
 	
 	@Column(name = "STOREPRODUCTID", insertable = false, updatable = false, nullable = false)

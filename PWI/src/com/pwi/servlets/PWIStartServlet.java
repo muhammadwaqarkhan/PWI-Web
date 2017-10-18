@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Endpoint;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 import com.pwi.ws.branch.JaxBranchServices;
 import com.pwi.ws.product.JaxProductServices;
 import com.pwi.ws.store.JaxStoreServices;
@@ -43,12 +47,12 @@ public class PWIStartServlet extends HttpServlet
 	public void init(ServletConfig config) throws ServletException
 	{
 		
-
+		 SpringApplicationContext.getInstance();
 		 Endpoint.publish("http://localhost:7779/PWI/Products", new JaxProductServices());
 		 Endpoint.publish("http://localhost:7779/PWI/Stores", new JaxStoreServices());
 		 Endpoint.publish("http://localhost:7779/PWI/Branch", new JaxBranchServices());
 		 
-		 BasePageHandler.getServiceExecutor();
+		
 	}
 
 	/**

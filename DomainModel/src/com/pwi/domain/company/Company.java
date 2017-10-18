@@ -7,15 +7,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+import com.pwi.domain.branch.Branch;
 /**
  * Holds all data which is relevant to comapny 
  *  @author Waqar Contact 03346100977
  */
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	    	        name = Company.Queries.READ_BY_PRIMARY_KEY,  
+	    	        query = "from com.pwi.domain.company.Company where companyID=:companyID"  
+	    	        ) 
+	    }  
+)
+
 @Entity()
 @Table(name = "Company", schema = "pwi")
 public class Company 
 {
 	
+	public static class Queries
+	{
+		public static final String	READ_BY_PRIMARY_KEY	= "Company.ReadPrimaryKey";
+
+		
+	}
 	
 	
 	@Column(name = "COMPANYID", insertable = false, updatable = false, nullable = false)

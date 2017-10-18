@@ -1,5 +1,6 @@
 package com.pwi.services.user;
 
+import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dao.user.UserAccountsDAO;
 import com.pwi.domain.user.UserAccounts;
 import com.pwi.interfaces.IResponseHandler;
@@ -23,6 +24,13 @@ public class UserAccountsService extends ServiceBase{
 		UserAccountsInDTO dto = (UserAccountsInDTO) o;
 		
 		UserAccounts user=	UserAccountsDAO.getInstance(getSession()).readUser(dto.getUsername( ), dto.getPassword( ));
+		
+		if(user ==null)
+		{
+			outDTO.setErrorCode(FrameworkReasonCodes.GENERAL_ERROR);
+			outDTO.setErrorString("invalid user details");
+		}
+			
 		outDTO.setUserAccount(user);
 		return outDTO;
 	}

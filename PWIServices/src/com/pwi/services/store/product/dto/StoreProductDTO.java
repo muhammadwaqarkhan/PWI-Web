@@ -1,9 +1,12 @@
 package com.pwi.services.store.product.dto;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.domain.product.store.StoreProduct;
 import com.pwi.dto.BaseDTO;
 import com.pwi.interfaces.IRequestHandler;
-
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class StoreProductDTO extends BaseDTO implements IRequestHandler{
 
 	/**
@@ -21,6 +24,8 @@ public class StoreProductDTO extends BaseDTO implements IRequestHandler{
 	
 	private String storeName;
 	private String productName;
+	
+	
 	
 	public Long getStoreProductID() {
 		return storeProductID;

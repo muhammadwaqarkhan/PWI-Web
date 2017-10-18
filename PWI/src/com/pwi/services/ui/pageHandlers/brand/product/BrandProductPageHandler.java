@@ -2,6 +2,8 @@ package com.pwi.services.ui.pageHandlers.brand.product;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.constants.FrameNames;
 import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dto.BaseOutDTO;
@@ -74,7 +76,7 @@ public class BrandProductPageHandler  implements IPageHandler {
 		ServiceBase service = new BrandProductService();
 		Object object = BasePageHandler.getServiceExecutor().callService(service, "SaveBrandProduct", inDTO);
 		
-		if(object instanceof StoreProductDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
 		{
 			return getBrandProducts(request);
 		}

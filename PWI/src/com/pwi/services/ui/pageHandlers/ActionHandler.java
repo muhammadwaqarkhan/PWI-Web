@@ -6,6 +6,7 @@ import com.pwi.constants.ApplicationCodes;
 import com.pwi.constants.FrameNames;
 import com.pwi.interfaces.IPageHandler;
 import com.pwi.services.ui.pageHandlers.admin.AdminPageHandler;
+import com.pwi.services.ui.pageHandlers.base.Pagehandler;
 import com.pwi.services.ui.pageHandlers.branch.BranchPageHandler;
 import com.pwi.services.ui.pageHandlers.brand.product.BrandProductPageHandler;
 import com.pwi.services.ui.pageHandlers.login.LoginPageHandler;
@@ -27,6 +28,9 @@ public class ActionHandler
 	public IPageHandler getPageHandler (HttpServletRequest request)
 	{
 		final String pageName = getPageName(request);
+		
+		return Pagehandler.getPageHandler(pageName);
+		/*
 		if (FrameNames.LOGIN_PAGE.equals(pageName))
 		{
 			return new LoginPageHandler();
@@ -54,11 +58,11 @@ public class ActionHandler
 		else if (FrameNames.ADD_BRAND_PRODUCT.equals(pageName))
 		{
 			return new BrandProductPageHandler();
-		}
+		}*/
 		
 		
 
-		return null;
+		
 	}
 
 	private String getPageName (HttpServletRequest request)

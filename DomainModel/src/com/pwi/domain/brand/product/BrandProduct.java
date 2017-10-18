@@ -10,17 +10,61 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import com.pwi.domain.brand.Brand;
 import com.pwi.domain.product.Product;
+import com.pwi.domain.user.UserAccounts;
 /**
  * Holds all data which is relevant to StoreProduct 
  *  @author Waqar Contact 03346100977
  */
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	        name = BrandProduct.Queries.READ_BY_PRIMARY_KEY,  
+	        query = "from BrandProduct where brandProductID=:brandProductID"  
+	        ) ,//
+	        @NamedQuery(  
+	    	        name = BrandProduct.Queries.READ_BY_ALL_BRANDS,  
+	    	        query = "from BrandProduct"  
+	    	),
+	    	@NamedQuery(  
+	    	        name = BrandProduct.Queries.READ_BY_BRAND_ID,  
+	    	        query = "from BrandProduct where branID=:branID"  
+	    	),
+	    	
+	    	@NamedQuery(  
+	    	        name = BrandProduct.Queries.READ_BY_PRODUCT_ID,  
+	    	        query = "from BrandProduct where productID=:productID"  
+	    	),
+	    	
+	    	@NamedQuery(  
+	    	        name = BrandProduct.Queries.READ_BY_BRAND_AND_PRODUCT_ID,  
+	    	        query = "from BrandProduct where productID=:productID and branID=:branID"  
+	    	)
+	    }  
+)  
+
+
 @Entity()
 @Table(name = "brandproduct", schema = "pwi")
 public class BrandProduct {
 
 
+	public static class Queries
+	{
+		public static final String	READ_BY_PRIMARY_KEY= "BrandProduct.ReadByPrimaryKey";
+		public static final String	READ_BY_ALL_BRANDS= "BrandProduct.ReadBrands";
+		public static final String	READ_BY_BRAND_ID= "BrandProduct.ReadBrandID";
+		public static final String	READ_BY_PRODUCT_ID= "BrandProduct.ReadProductID";
+		public static final String	READ_BY_BRAND_AND_PRODUCT_ID= "BrandProduct.ReadBrandAndProductID";
+		
+	}
+	
+	
 	
 	@Column(name = "brandproductID", insertable = false, updatable = false, nullable = false)
 	@GeneratedValue(strategy=GenerationType.AUTO)

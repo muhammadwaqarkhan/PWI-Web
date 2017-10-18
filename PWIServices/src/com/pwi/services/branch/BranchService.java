@@ -2,6 +2,8 @@ package com.pwi.services.branch;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pwi.constants.PWICodes;
 import com.pwi.dao.branch.BranchDAO;
 import com.pwi.dao.company.CompanyDAO;
@@ -36,9 +38,8 @@ public class BranchService extends ServiceBase{
 		
 		for(Branch branch : branches)
 		{
-			BranchDTO dto = new BranchDTO();
-			
-			outDTO.getBranches().add(dto.assemble(branch));
+				
+			outDTO.getBranches().add(new BranchDTO().assemble(branch));
 		}	
 	
 		return outDTO;
@@ -66,6 +67,8 @@ public class BranchService extends ServiceBase{
 		Branch branch = DomainFactory.getInstance().newBranch(address);
 		branch.setBranchName(dto.getBranchName());
 		branch.setCompany(CompanyDAO.getInstance(getSession()).findByPrimaryKey(PWICodes.DEFAULT_COMPANY));
+		
+		
 		getSession().persist(branch);
 		
 		

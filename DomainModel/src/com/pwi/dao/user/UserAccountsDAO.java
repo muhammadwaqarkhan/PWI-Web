@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pwi.dao.base.BaseDAO;
 import com.pwi.domain.user.UserAccounts;
+import com.pwi.spring.SpringApplicationContext;
 /**
  * 
  * create User accoutn dao to read record from user account table
@@ -20,9 +21,9 @@ public class UserAccountsDAO extends BaseDAO  implements IUserAccountsDAO
 		
 	public static UserAccountsDAO getInstance (Session session)
 	{
-		UserAccountsDAO singleton= new UserAccountsDAO ();
-		singleton.init(session);
-		return singleton;
+		UserAccountsDAO dao= (UserAccountsDAO)SpringApplicationContext.getApplicationContext().getBean("userDAO");
+		dao.init(session);
+		return dao;
 	}
 	
 
@@ -36,10 +37,10 @@ public class UserAccountsDAO extends BaseDAO  implements IUserAccountsDAO
 	@Override
 	public UserAccounts readUser(String userName, String password) 
 	{
-		String hql = "from com.pwi.domain.user.UserAccounts";
 		
-		Query query = getSession().createQuery(hql);
-		
+		Query query = getSession().getNamedQuery(UserAccounts.Queries.READ_BY_USER_PASSWORD);  
+		query.setParameter("userName", userName);
+		query.setParameter("password", password);
 		return (UserAccounts) query.uniqueResult();
 	}
 

@@ -1,8 +1,11 @@
 package com.pwi.services.brand.dto;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.domain.brand.Brand;
 import com.pwi.dto.BaseDTO;
-
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class BrandDTO extends BaseDTO
 {
 

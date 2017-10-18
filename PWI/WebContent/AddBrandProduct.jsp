@@ -39,7 +39,7 @@
 <script	src="resources/javascript/jquery-ui-1.10.4/ui/minified/jquery.ui.accordion.min.js" type="text/javascript"></script>
 <script src="resources/javascript/jquery-ui-1.10.4/ui/jquery.ui.accordion.js" type="text/javascript"></script>
 <script type="text/javascript" src="AddBrandProduct.js"></script>
-
+<script type="text/javascript" src="resources/javascript/validation/IValidation.js"></script>
 
 
 <script type="text/javascript" src="resources/javascript/menu.js"></script>	

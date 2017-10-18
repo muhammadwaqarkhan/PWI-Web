@@ -3,8 +3,11 @@ package com.pwi.services.brand.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pwi.dto.BaseDTO;
+import org.springframework.stereotype.Component;
 
+import com.pwi.dto.BaseDTO;
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class BrandOutDTO extends BaseDTO 
 {
 	
@@ -17,6 +20,8 @@ public class BrandOutDTO extends BaseDTO
 	List<BrandDTO> brands = new ArrayList<BrandDTO>();
 
 
+	
+	
 	public List<BrandDTO> getBrands() {
 		return brands;
 	}

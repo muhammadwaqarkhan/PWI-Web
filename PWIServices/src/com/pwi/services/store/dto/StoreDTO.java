@@ -1,10 +1,14 @@
 package com.pwi.services.store.dto;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.domain.store.Store;
 import com.pwi.dto.BaseDTO;
 import com.pwi.interfaces.IRequestHandler;
 import com.pwi.services.address.dto.AddressDTO;
-
+import com.pwi.services.product.dto.ProductOutDTO;
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class StoreDTO extends BaseDTO implements IRequestHandler{
 
 	/**

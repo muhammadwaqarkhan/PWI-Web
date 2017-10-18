@@ -11,7 +11,7 @@
 	<div id="HeaderDiv">
 	
 		<p style="margin-left: 100px ">
-			<div id="iErrorPanel" style="margin-left: -100; color: red;" name="iErrorPanel"></div>
+			<div id="iErrorPanel" style="margin-left: -100; color: red;" name="iErrorPanel">${iErrorPanel}</div>
 		<div id="menu">
 		    <ul class="menu">
 		       

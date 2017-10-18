@@ -1,10 +1,13 @@
 package com.pwi.services.branch.dto;
 
+import org.springframework.stereotype.Component;
+
 import com.pwi.domain.branch.Branch;
 import com.pwi.dto.BaseDTO;
 import com.pwi.interfaces.IRequestHandler;
 import com.pwi.services.address.dto.AddressDTO;
-
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class BranchDTO extends BaseDTO implements IRequestHandler
 {
 	/**
@@ -23,6 +26,7 @@ public class BranchDTO extends BaseDTO implements IRequestHandler
 	private String 			companyName;
 	private AddressDTO address = new AddressDTO();
 		
+	
 	
 	public String getBranchName() {
 		return branchName;
@@ -92,7 +96,7 @@ public class BranchDTO extends BaseDTO implements IRequestHandler
 		this.postalCode=branch.getAddress().getPostCode();
 		this.street=branch.getAddress().getStreet();
 		this.companyName=branch.getCompany().getName();
-		
+		//this.address=branch.getAddress();
 		
 		
 		return this;

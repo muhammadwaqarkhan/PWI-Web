@@ -3,8 +3,11 @@ package com.pwi.services.product.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pwi.dto.BaseDTO;
+import org.springframework.stereotype.Component;
 
+import com.pwi.dto.BaseDTO;
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class ProductOutDTO  extends BaseDTO {
 
 	/**
@@ -14,6 +17,8 @@ public class ProductOutDTO  extends BaseDTO {
 
 	List<ProductDTO> products = new ArrayList<ProductDTO>();
 
+	
+	
 	public List<ProductDTO> getProducts() {
 		return products;
 	}

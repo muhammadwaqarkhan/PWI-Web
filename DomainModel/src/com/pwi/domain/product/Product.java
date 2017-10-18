@@ -13,16 +13,51 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import com.pwi.domain.brand.product.BrandProduct;
+import com.pwi.domain.company.Company;
 import com.pwi.domain.product.store.StoreProduct;
 /**
  * Holds all data which is relevant to Product 
  *  @author Waqar Contact 03346100977
  */
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	    	        name = Product.Queries.READ_BY_PRIMARY_KEY,  
+	    	        query = "from com.pwi.domain.product.Product where productID=:productID"  
+	    	        ) ,//
+	    	@NamedQuery(  
+	    			name = Product.Queries.READ_BY_ALL_PRODUCTS,  
+	    	    	query = "from com.pwi.domain.product.Product"  
+	    	       ) ,//
+	    	@NamedQuery(  
+	    			name = Product.Queries.READ_BY_SIZE_NAME_TYPE,  
+	    	    	query = "from com.pwi.domain.product.Product where  productName=:productName and size=:size and productType=:productType"  
+	    	       ) ,//
+	    	@NamedQuery(  
+	    			name = Product.Queries.READ_BY_NAME,  
+	    	    	query = "from com.pwi.domain.product.Product where  productName=:productName"  
+	    	       ) 
+	    }  
+)
+
 @Entity()
 @Table(name = "product", schema = "pwi")
 public class Product {
 
+	
+	public static class Queries
+	{
+		public static final String	READ_BY_PRIMARY_KEY		= "Product.ReadPrimaryKey";
+		public static final String	READ_BY_ALL_PRODUCTS	= "Product.ReadProducts";
+		public static final String	READ_BY_SIZE_NAME_TYPE	= "Product.readBySizeNameAndType";
+		public static final String	READ_BY_NAME		 	= "Product.readByName";
+		
+	}
 	private static final int	PRODUCT_CODE_LENGTH				= 45;
 	private static final int	PRODUCT_TYPE_LENGTH				= 45;	
 	

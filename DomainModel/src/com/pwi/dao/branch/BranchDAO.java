@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.pwi.constants.PWICodes;
 import com.pwi.dao.base.BaseDAO;
 import com.pwi.domain.branch.Branch;
+import com.pwi.domain.user.UserAccounts;
+import com.pwi.spring.SpringApplicationContext;
 
 /**
  * 
@@ -17,6 +21,9 @@ import com.pwi.domain.branch.Branch;
  * 
  * @author Waqar Contact 03346100977
  */
+
+  
+
 @Repository()
 @Scope(value = "prototype")
 public class BranchDAO extends BaseDAO  implements IBranchDAO
@@ -24,9 +31,9 @@ public class BranchDAO extends BaseDAO  implements IBranchDAO
 		
 	public static BranchDAO getInstance (Session session)
 	{
-		BranchDAO singleton= new BranchDAO ();
-		singleton.init(session);
-		return singleton;
+		BranchDAO dao= (BranchDAO)SpringApplicationContext.getApplicationContext().getBean("branchDAO");
+		dao.init(session);
+		return dao;
 	}
 	/**
 	 * Reads all branches 
@@ -38,9 +45,10 @@ public class BranchDAO extends BaseDAO  implements IBranchDAO
 	@Override
 	public List<Branch> readBranches() {
 		
-		String hql = "from com.pwi.domain.branch.Branch where status=:status";
+		//String hql = "from com.pwi.domain.branch.Branch where status=:status";
 		
-		Query query = getSession().createQuery(hql);
+		Query query = getSession().getNamedQuery(Branch.Queries.READ_BY_ALL_BRANCHS);  
+		
 		query.setParameter("status", PWICodes.INDICATOR_TRUE);
 		return query.list();
 		
@@ -57,9 +65,10 @@ public class BranchDAO extends BaseDAO  implements IBranchDAO
 	@Override
 	public Branch findByPrimaryKey(Long branchID) {
 
-		String hql = "from com.pwi.domain.branch.Branch where branchID=:branchID";
+		//String hql = "from com.pwi.domain.branch.Branch where branchID=:branchID";
 		
-		Query query = getSession().createQuery(hql);
+		Query query = getSession().getNamedQuery(Branch.Queries.READ_BY_PRIMARY_KEY);  
+		
 		query.setParameter("branchID", branchID);
 		return (Branch)query.uniqueResult();
 	}
@@ -74,9 +83,10 @@ public class BranchDAO extends BaseDAO  implements IBranchDAO
 	@Override
 	public Branch readByBranchName(String branchName) 
 	{
-		String hql = "from com.pwi.domain.branch.Branch where branchName=:branchName";
+		//String hql = "from com.pwi.domain.branch.Branch where branchName=:branchName";
 		
-		Query query = getSession().createQuery(hql);
+		
+		Query query = getSession().getNamedQuery(Branch.Queries.READ_BY_BRANCH_NAME);  
 		query.setParameter("branchName", branchName);
 		return (Branch)query.uniqueResult();
 	}

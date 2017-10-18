@@ -12,7 +12,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pwi.constants.FrameworkReasonCodes;
+import com.pwi.dto.BaseOutDTO;
 import com.pwi.interfaces.IRequestHandler;
+import com.pwi.interfaces.IResponseHandler;
 import com.pwi.services.base.ServiceBase;
 import com.pwi.services.base.SpringServiceBase;
 import com.pwi.services.framework.annotations.ServiceMethod;
@@ -49,11 +51,9 @@ public class ServiceExecutor
 	 * inDTO:	this is type of IRequestHadnler, which contain input information           
 	 * @return Object any type of object 
 	 */
-    @SuppressWarnings("deprecation")
-	public Object callService(ServiceBase service, String serviceName, IRequestHandler inDTO)
+    public Object callService(ServiceBase service, String serviceName, IRequestHandler inDTO)
 	{
-    	Object response;
-    	
+    	IResponseHandler response;
 
     	
     	SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -65,9 +65,9 @@ public class ServiceExecutor
 			service.setSession(session);
 			Method method = getServiceMethod (service , serviceName);
 			if (method.getParameterTypes ().length > 0)
-				response = method.invoke (service , inDTO);
+				response = (IResponseHandler) method.invoke (service , inDTO);
 			else
-				response =  method.invoke (service);
+				response =  (IResponseHandler) method.invoke (service);
 		
 			transcation.commit();
 			
@@ -75,8 +75,13 @@ public class ServiceExecutor
 		catch (Exception exception)
 		{
 
-			transcation.rollback();
-			throw new PWIException(exception,exception.getMessage(),FrameworkReasonCodes.EXECUTION_ERROR);
+			 transcation.rollback();
+			 response = new BaseOutDTO();
+			 response.setErrorCode(FrameworkReasonCodes.EXECUTION_ERROR);
+			 response.setErrorString(exception.getStackTrace().toString());
+			 
+			 return response;
+			//throw new PWIException(exception,exception.getMessage(),FrameworkReasonCodes.EXECUTION_ERROR);
 		}
 		finally
 		{

@@ -16,18 +16,44 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import com.pwi.domain.address.Address;
 import com.pwi.domain.branch.Branch;
+import com.pwi.domain.company.Company;
 import com.pwi.domain.product.store.StoreProduct;
 
 /**
  * Holds all data which is relevant to Store 
  *  @author Waqar Contact 03346100977
  */
+
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	    	        name = Store.Queries.READ_BY_PRIMARY_KEY,  
+	    	        query = "from Store where storeID=:storeID"  
+	    	  ),//
+	    	        
+	    	@NamedQuery(  
+	    	     name = Store.Queries.READ_BY_ALL_STORE,  
+	    	      query = "from Store"  
+	    	 )         
+	    }  
+)
 @Entity()
 @Table(name = "Store", schema = "pwi")
 public class Store {
 
+	
+	
+	public static class Queries
+	{
+		public static final String	READ_BY_PRIMARY_KEY	= "Store.ReadPrimaryKey";
+		public static final String	READ_BY_ALL_STORE= "Store.ReadStores";
+		
+	}
 	
 	private static final int	NAME_LENGTH				= 45;
 	private static final int	STATUS_LENGTH			= 45;
@@ -90,11 +116,7 @@ public class Store {
 		this.branch=branch;
 		this.status= new Integer(1);
 	}
-	public static class Queries
-	{
-		
-		
-	}
+	
 
 	/**
 	 * Returns productID

@@ -1,7 +1,10 @@
 package com.pwi.services.user.dto;
 
-import com.pwi.interfaces.IRequestHandler;
+import org.springframework.stereotype.Component;
 
+import com.pwi.interfaces.IRequestHandler;
+import com.pwi.spring.SpringApplicationContext;
+@Component
 public class UserAccountsInDTO implements IRequestHandler
 {
 
@@ -11,6 +14,8 @@ public class UserAccountsInDTO implements IRequestHandler
 	
 	
 	private boolean	isthroughuser = true;
+	
+	
 
 	public String getUsername ()
 	{
