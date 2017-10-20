@@ -17,7 +17,7 @@ import com.pwi.services.product.dto.ProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.spring.SpringApplicationContext;
 
-public class ProductPageHandler  implements IPageHandler {
+public class ProductPageHandler extends BasePageHandler implements IPageHandler {
 
 	@Override
 	public IResponseHandler executeRead(HttpServletRequest request)
@@ -30,21 +30,17 @@ public class ProductPageHandler  implements IPageHandler {
 	protected IResponseHandler getProducts(HttpServletRequest request) 
 	{
 
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		
-		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("productService");
-		Object object = executor.callService(service, "FetchProduct", new ProductDTO());
-		if(object instanceof ProductOutDTO)
+		IResponseHandler response = getServiceExecutor().callService(getService(), "FetchProduct", new ProductDTO());
+		if(isSuccess(response, request))
 		{
-			request.setAttribute("products", ((ProductOutDTO)object).getProducts());
+			request.setAttribute("products", ((ProductOutDTO)response).getProducts());
 			
-			return (ProductOutDTO)object;
+			return (ProductOutDTO)response;
 			
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 		
 	}
@@ -67,18 +63,15 @@ public class ProductPageHandler  implements IPageHandler {
 		ProductDTO dto = getProductDTO(request);
 
 		
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new ProductService();
-		Object object = executor.callService(service, "SaveProduct", dto);
+		IResponseHandler response = getServiceExecutor().callService(getService(), "SaveProduct", dto);
 		
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(isSuccess(response, request,true))
 		{
 			return getProducts(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
@@ -108,17 +101,15 @@ public class ProductPageHandler  implements IPageHandler {
 		ProductDTO dto = getProductDTO(request);
 		dto.setProductID(Long.valueOf(sproductID ));
 		
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new ProductService();
-		Object object = executor.callService(service, "UpdateProduct", dto);
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		
+		IResponseHandler response = getServiceExecutor().callService(getService(), "UpdateProduct", dto);
+		if(isSuccess(response, request,true))
 		{
 			return getProducts(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
@@ -150,5 +141,10 @@ public class ProductPageHandler  implements IPageHandler {
 		dto.setQPB(Integer.valueOf(QPB));
 		dto.setSize(Integer.valueOf(size));
 		return dto;
+	}
+
+	@Override
+	protected ServiceBase getService() {
+		return (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("productService");
 	}
 }

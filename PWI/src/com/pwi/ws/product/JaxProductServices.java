@@ -15,6 +15,7 @@ import com.pwi.services.product.ProductService;
 import com.pwi.services.product.dto.ProductDTO;
 import com.pwi.services.product.dto.ProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 import com.pwi.ws.product.dto.JaxDeleteProductDTO;
 import com.pwi.ws.product.dto.JaxProductDTO;
 import com.pwi.ws.product.dto.JaxProductSizeDTO;
@@ -29,7 +30,7 @@ public class JaxProductServices implements IJaxProductServices
 	public String addProduct(JaxProductDTO input) 
 	{
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "SaveProduct", input.assemble());
 		
@@ -44,7 +45,7 @@ public class JaxProductServices implements IJaxProductServices
 	@Override
 	public String updateProduct(JaxProductDTO input) {
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "UpdateProduct", input.assemble());
 		
@@ -61,7 +62,7 @@ public class JaxProductServices implements IJaxProductServices
 	{
 
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "DeleteProduct", input.assemble());
 		
@@ -76,7 +77,7 @@ public class JaxProductServices implements IJaxProductServices
 	@Override
 	public ProductOutDTO getProduct(Header header) 
 	{
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "FetchProduct", new ProductDTO());
 		
@@ -92,7 +93,7 @@ public class JaxProductServices implements IJaxProductServices
 	@Override
 	public List<JaxProductSizeOutDTO> productSize(JaxProductSizeDTO input) {
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "WebServiceFetchProduct", input.assemble());
 		

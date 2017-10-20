@@ -24,9 +24,9 @@ public class BranchAjaxHandler
 			BranchDTO dto = new BranchDTO();
 			dto.setBranchID(branchID);
 			
-			ServiceExecutor executor=BasePageHandler.getServiceExecutor();
+			
 			ServiceBase service = new BranchService();
-			Object object = executor.callService(service, "DeleteBranch", dto);
+			Object object =null;// getExecutor().callService(service, "DeleteBranch", dto);
 			
 			if(object instanceof BranchDTO)
 			{
@@ -51,7 +51,7 @@ public class BranchAjaxHandler
 
 	private IResponseHandler getBranches()
 	{
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor=null;//=BasePageHandler.getServiceExecutor();
 		ServiceBase service = new BranchService();
 		Object object = executor.callService(service, "FetchBranch", new BranchDTO());
 		if(object instanceof IResponseHandler)

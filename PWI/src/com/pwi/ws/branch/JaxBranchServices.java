@@ -10,7 +10,7 @@ import com.pwi.services.branch.BranchService;
 import com.pwi.services.branch.dto.BranchStoreProductOutDTO;
 import com.pwi.services.branch.dto.BranchStoreProductOutDTO.StoreProductQuantitySize;
 import com.pwi.services.framework.ServiceExecutor;
-import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 import com.pwi.ws.branch.dto.JaxBranchDTO;
 import com.pwi.ws.branch.dto.JaxBranchOutDTO;
 
@@ -22,7 +22,8 @@ public class JaxBranchServices implements IJaxBranchServices
 	public List<JaxBranchOutDTO> getBranchStoreQuantity(JaxBranchDTO input) 
 	{
 		List<JaxBranchOutDTO> outDTO = new ArrayList<JaxBranchOutDTO>();
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
+		
 		ServiceBase base = new BranchService();
 		Object object = executor.callService(base, "webServiceBranch", input.assemble());
 		

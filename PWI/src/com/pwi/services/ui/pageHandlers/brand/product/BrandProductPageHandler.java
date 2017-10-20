@@ -19,7 +19,7 @@ import com.pwi.services.store.product.dto.StoreProductDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.spring.SpringApplicationContext;
 
-public class BrandProductPageHandler  implements IPageHandler {
+public class BrandProductPageHandler extends BasePageHandler implements IPageHandler {
 
 	@Override
 	public IResponseHandler executeRead(HttpServletRequest request)
@@ -31,22 +31,21 @@ public class BrandProductPageHandler  implements IPageHandler {
 
 	protected IResponseHandler getBrandProducts(HttpServletRequest request) 
 	{
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
+	
 
-		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("brandProductService");
-		Object object = executor.callService(service, "FetchBrandProduct", new StoreProductDTO());
-		if(object instanceof BrandProductOutDTO)
+		
+		IResponseHandler response = getServiceExecutor().callService(getService() , "FetchBrandProduct", new StoreProductDTO());
+		if(isSuccess(response, request))
 		{	
-			request.setAttribute("products", ((BrandProductOutDTO)object).getProducts());
-			request.setAttribute("brands", ((BrandProductOutDTO)object).getBrand());
-			request.setAttribute("brandProduct", ((BrandProductOutDTO)object).getBrandProducts());
-			return (BrandProductOutDTO)object;
+			request.setAttribute("products", ((BrandProductOutDTO)response).getProducts());
+			request.setAttribute("brands", ((BrandProductOutDTO)response).getBrand());
+			request.setAttribute("brandProduct", ((BrandProductOutDTO)response).getBrandProducts());
+			return (BrandProductOutDTO)response;
 			
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 		
 	}
@@ -68,24 +67,20 @@ public class BrandProductPageHandler  implements IPageHandler {
 		String brand = request.getParameter("brand");
 		String products = request.getParameter("products");
 		
-		
-		
 		BrandProductDTO inDTO= new BrandProductDTO ();
 		inDTO.setBrandID(Long.valueOf(brand));
 		inDTO.setProductID(Long.valueOf(products));
 		
 		
-		ServiceBase service = new BrandProductService();
-		Object object = BasePageHandler.getServiceExecutor().callService(service, "SaveBrandProduct", inDTO);
+		IResponseHandler response = getServiceExecutor().callService(getService() , "SaveBrandProduct", inDTO);
 		
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(isSuccess(response, request))
 		{
 			return getBrandProducts(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
@@ -114,23 +109,30 @@ public class BrandProductPageHandler  implements IPageHandler {
 		StoreProductDTO dto = new StoreProductDTO();
 		dto.setStoreProductID(Long.valueOf(storeProductID));
 		
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new StoreProductService();
-		Object object = executor.callService(service, "DeleteStoreProduct", dto);
-		if(object instanceof StoreProductDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		IResponseHandler response = getServiceExecutor().callService(getService() , "DeleteStoreProduct", dto);
+		if(isSuccess(response, request,true))
 		{
 			return getBrandProducts(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
+			
 		}
+			
+		
 	}
 
 	@Override
 	public IResponseHandler executeUpdate(HttpServletRequest request) {
 		return null;
+	}
+
+	@Override
+	protected ServiceBase getService() 
+	{
+	
+		return (ServiceBase)SpringApplicationContext.getBean("brandProductService");
 	}
 	
 }

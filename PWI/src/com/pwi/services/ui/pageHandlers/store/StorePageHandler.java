@@ -18,7 +18,7 @@ import com.pwi.services.store.dto.StoreDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.spring.SpringApplicationContext;
 
-public class StorePageHandler  implements IPageHandler {
+public class StorePageHandler extends BasePageHandler implements IPageHandler {
 
 	@Override
 	public IResponseHandler executeRead(HttpServletRequest request)
@@ -33,21 +33,21 @@ public class StorePageHandler  implements IPageHandler {
 
 		StoreDTO dto  = new StoreDTO();
 	
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
+		
 	
-		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("branchStoreService");
-		Object object = executor.callService(service, "FetchBranchStore", dto);
-		if(object instanceof BranchStoreDTO)
+		
+		IResponseHandler response = getServiceExecutor().callService(getService(), "FetchBranchStore", dto);
+		if(isSuccess(response, request))
 		{
-			request.setAttribute("branches", ((BranchStoreDTO)object).getBranchDTO().getBranches());
-			request.setAttribute("stroes", ((BranchStoreDTO)object).getStoreDTO().getStores());
-			return (BranchStoreDTO)object;
+			request.setAttribute("branches", ((BranchStoreDTO)response).getBranchDTO().getBranches());
+			request.setAttribute("stroes", ((BranchStoreDTO)response).getStoreDTO().getStores());
+			return response;
 			
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+		
+			return response;
 		}
 		
 	}
@@ -80,18 +80,17 @@ public class StorePageHandler  implements IPageHandler {
 		inDTO.getAddress().setCity(city);
 		inDTO.getAddress().setCountry(country);
 		inDTO.getAddress().setPostalCode(postal);
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new StoreService();
-		Object object = executor.callService(service, "SaveStore", inDTO);
 		
-		if(object instanceof StoreDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		
+		IResponseHandler response = getServiceExecutor().callService(getService(), "SaveStore", inDTO);
+		
+		if(isSuccess(response, request,true))
 		{
 			return getStores(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
@@ -120,23 +119,26 @@ public class StorePageHandler  implements IPageHandler {
 		StoreDTO dto = new StoreDTO();
 		dto.setStoreID(Long.valueOf(sstoreID));
 		
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new StoreService();
-		Object object = executor.callService(service, "DeleteStore", dto);
-		if(object instanceof StoreDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		
+		IResponseHandler response = getServiceExecutor().callService(getService(), "DeleteStore", dto);
+		if(isSuccess(response, request,true))
 		{
 			return getStores(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
 	@Override
 	public IResponseHandler executeUpdate(HttpServletRequest request) {
 		return null;
+	}
+
+	@Override
+	protected ServiceBase getService() {
+		return  (ServiceBase)SpringApplicationContext.getBean("storeService");
 	}
 	
 }

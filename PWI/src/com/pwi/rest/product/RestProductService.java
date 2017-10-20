@@ -17,6 +17,7 @@ import com.pwi.services.product.ProductService;
 import com.pwi.services.product.dto.ProductDTO;
 import com.pwi.services.product.dto.ProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 @Path("/Products")
 public class RestProductService 
 {
@@ -45,9 +46,9 @@ public class RestProductService
 		dto.setQPB(Integer.valueOf(QPB));
 		dto.setSize(Integer.valueOf(size));
 	
-
+		
 		ServiceBase base = new ProductService();
-		Object object = BasePageHandler.getServiceExecutor().callService(base, "SaveProduct",dto);
+		Object object = getExecutor().callService(base, "SaveProduct",dto);
 		
 		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 		{
@@ -85,9 +86,8 @@ public class RestProductService
 		dto.setProductID(Long.valueOf(productID));
 	
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
 		ServiceBase base = new ProductService();
-		Object object = executor.callService(base, "UpdateProduct", dto);
+		Object object = getExecutor().callService(base, "UpdateProduct", dto);
 		
 		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 		{
@@ -109,12 +109,16 @@ public class RestProductService
 		inDTO.setProductName(productName);
 		inDTO.setProductID(Long.valueOf(productID));
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		
 		ServiceBase base = new ProductService();
-		Object object = executor.callService(base, "WebServiceFetchProduct", inDTO);
+		Object object = getExecutor().callService(base, "WebServiceFetchProduct", inDTO);
 		
 		return new RestProductSizeDTO().assemble((ProductOutDTO)object);
 		
+	}
+	private ServiceExecutor getExecutor()
+	{
+		return  (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 	}
 
 }

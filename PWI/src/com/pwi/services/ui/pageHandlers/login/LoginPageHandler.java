@@ -17,7 +17,7 @@ import com.pwi.services.user.dto.UserAccountsInDTO;
 import com.pwi.services.user.dto.UserAccountsOutDTO;
 import com.pwi.spring.SpringApplicationContext;
 
-public class LoginPageHandler   implements IPageHandler {
+public class LoginPageHandler  extends BasePageHandler implements IPageHandler {
 
 	@Override
 	public IResponseHandler executeRead(HttpServletRequest request) {
@@ -27,7 +27,7 @@ public class LoginPageHandler   implements IPageHandler {
 
 		IResponseHandler response = verifyUser(userName, password);
 		
-		if(response.getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(isSuccess(response, request))
 		{
 			response.setNavURL(getNavUrl(request));
 			return response;
@@ -47,26 +47,16 @@ public class LoginPageHandler   implements IPageHandler {
 		return null;
 	}
 
-	public IResponseHandler verifyUser(String userName, String password) {
-	
-		ServiceExecutor executor = BasePageHandler.getServiceExecutor();
+	public IResponseHandler verifyUser(String userName, String password) 
+	{
 
 		UserAccountsInDTO inDTO = new UserAccountsInDTO();
 		inDTO.setUsername(userName);
 		inDTO.setPassword(password);
-
 		
-		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("userAccountsService");
-		Object object = executor.callService(service, "VarifedUser", inDTO);
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
-		{
-			return (UserAccountsOutDTO)object;
-		}
 		
-	
+		return getServiceExecutor().callService(getService(), "VarifedUser", inDTO);
 		
-		BaseOutDTO errorOutDTO = new BaseOutDTO();
-		return errorOutDTO;
 	}
 	
 	private String getNavUrl (HttpServletRequest request)
@@ -87,5 +77,10 @@ public class LoginPageHandler   implements IPageHandler {
 	public IResponseHandler executeUpdate(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected ServiceBase getService() {
+		return (ServiceBase)SpringApplicationContext.getBean("userAccountsService");
 	}
 }

@@ -19,6 +19,7 @@ import com.pwi.services.store.product.StoreProductService;
 import com.pwi.services.store.product.dto.StoreProductDTO;
 import com.pwi.services.store.product.dto.StoreProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 
 @Path("/Stores")
 public class RestStoreService 
@@ -30,9 +31,8 @@ public class RestStoreService
 	 public String getStore ()
 	 {
 		 
-		 	ServiceExecutor executor= BasePageHandler.getServiceExecutor();
 			ServiceBase base = new StoreService();
-			Object object = executor.callService(base, "FetchStore", new StoreDTO());
+			Object object = getExecutor().callService(base, "FetchStore", new StoreDTO());
 			
 			if(object instanceof StoreOutDTO )
 			{
@@ -60,9 +60,9 @@ public class RestStoreService
 		 dto.getAddress().setStreet(street);
 		 dto.setStoreName(storeName);
 		 dto.setBranchID(Long.valueOf(branchID));
-		 ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		 
 			ServiceBase base = new StoreService();
-			Object object = executor.callService(base, "SaveStore", dto);
+			Object object = getExecutor().callService(base, "SaveStore", dto);
 			
 			if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 			{
@@ -93,9 +93,9 @@ public class RestStoreService
 		 dto.getAddress().setStreet(street);
 		 dto.setStoreName(storeName);
 		 dto.setBranchID(Long.valueOf(branchID));
-		 ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		 
 		 ServiceBase base = new StoreService();
-		 Object object = executor.callService(base, "UpdateStore", dto);
+		 Object object = getExecutor().callService(base, "UpdateStore", dto);
 			
 		 if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 		 {
@@ -115,9 +115,9 @@ public class RestStoreService
 		 	
 		 	StoreDTO dto = new StoreDTO();
 		 	dto .setStoreID(Long.valueOf(storeID));
-			ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+			
 			ServiceBase base = new StoreService();
-			Object object = executor.callService(base, "DeleteStore", dto);
+			Object object = getExecutor().callService(base, "DeleteStore", dto);
 			
 			if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 			{
@@ -139,9 +139,9 @@ public class RestStoreService
 			dto .setStoreID(Long.valueOf(storeID));
 			dto .setProductID(Long.valueOf(productID));
 			
-			ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+			
 			ServiceBase base = new StoreProductService();
-			Object object = executor.callService(base, "WebServiceStoreProduct", dto);
+			Object object = getExecutor().callService(base, "WebServiceStoreProduct", dto);
 			
 			if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 			{
@@ -172,9 +172,9 @@ public class RestStoreService
 			
 		 
 		 
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		
 		ServiceBase base = new StoreProductService();
-		Object object = executor.callService(base, "updateStoreProductQuantity", dto);
+		Object object = getExecutor().callService(base, "updateStoreProductQuantity", dto);
 			
 		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
 		{
@@ -222,4 +222,8 @@ public class RestStoreService
 		}*/
 
 
+	 private ServiceExecutor getExecutor()
+		{
+			return  (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
+		}
 }

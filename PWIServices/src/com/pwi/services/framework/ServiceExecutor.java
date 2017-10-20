@@ -51,7 +51,7 @@ public class ServiceExecutor
 	 * inDTO:	this is type of IRequestHadnler, which contain input information           
 	 * @return Object any type of object 
 	 */
-    public Object callService(ServiceBase service, String serviceName, IRequestHandler inDTO)
+    public IResponseHandler callService(ServiceBase service, String serviceName, IRequestHandler inDTO)
 	{
     	IResponseHandler response;
 

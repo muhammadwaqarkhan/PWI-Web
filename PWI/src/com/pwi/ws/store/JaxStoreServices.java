@@ -14,6 +14,7 @@ import com.pwi.services.store.dto.StoreOutDTO;
 import com.pwi.services.store.product.StoreProductService;
 import com.pwi.services.store.product.dto.StoreProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 import com.pwi.ws.store.dto.JaxDeleteStoreDTO;
 import com.pwi.ws.store.dto.JaxStoreDTO;
 import com.pwi.ws.store.dto.JaxStoreProductDTO;
@@ -26,7 +27,7 @@ public class JaxStoreServices implements IJaxStoreServices
 	private final String FAILURE="failure";
 	@Override
 	public StoreOutDTO getStore(Header header) {
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new StoreService();
 		Object object = executor.callService(base, "FetchStore", new StoreDTO());
 		
@@ -40,7 +41,7 @@ public class JaxStoreServices implements IJaxStoreServices
 
 	@Override
 	public String addStore(JaxStoreDTO input) {
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new StoreService();
 		Object object = executor.callService(base, "SaveStore", input.assemble());
 		
@@ -55,7 +56,7 @@ public class JaxStoreServices implements IJaxStoreServices
 	@Override
 	public String updateStore(JaxStoreDTO input) 
 	{
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "UpdateStore", input.assemble());
 		
@@ -69,7 +70,7 @@ public class JaxStoreServices implements IJaxStoreServices
 
 	@Override
 	public String deleteStore(JaxDeleteStoreDTO input) {
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new StoreService();
 		Object object = executor.callService(base, "DeleteStore", input.assemble());
 		
@@ -84,7 +85,7 @@ public class JaxStoreServices implements IJaxStoreServices
 	@Override
 	public StoreProductOutDTO storeItemQuantity(JaxStoreProductDTO input) {
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new StoreProductService();
 		Object object = executor.callService(base, "WebServiceStoreProduct", input.assemble());
 		
@@ -99,7 +100,7 @@ public class JaxStoreServices implements IJaxStoreServices
 	@Override
 	public String updateStoreItemQuantity(JaxStoreProductQuantityDTO input) {
 		
-		ServiceExecutor executor= BasePageHandler.getServiceExecutor();
+		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new StoreProductService();
 		Object object = executor.callService(base, "updateStoreProductQuantity", input.assemble());
 		

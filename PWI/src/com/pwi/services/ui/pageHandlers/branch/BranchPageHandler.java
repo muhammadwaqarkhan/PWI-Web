@@ -17,7 +17,7 @@ import com.pwi.services.framework.ServiceExecutor;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.spring.SpringApplicationContext;
 @Component
-public class BranchPageHandler  implements IPageHandler {
+public class BranchPageHandler  extends BasePageHandler implements IPageHandler {
 
 	@Override
 	public IResponseHandler executeRead(HttpServletRequest request)
@@ -29,24 +29,18 @@ public class BranchPageHandler  implements IPageHandler {
 
 	protected IResponseHandler getBranch(HttpServletRequest request) 
 	{
-
 		
-	
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("branchService");
-		Object object = executor.callService(service, "FetchBranch", new BranchDTO());
-		if(object instanceof BranchOutDTO)
+		IResponseHandler response = getServiceExecutor().callService(getService(), "FetchBranch", new BranchDTO());
+		if(isSuccess(response, request))
 		{
-			request.setAttribute("companyName", ((BranchOutDTO)object).getCompanyName());
-			request.setAttribute("branches", ((BranchOutDTO)object).getBranches());
-			return (BranchOutDTO)object;
+			request.setAttribute("companyName", ((BranchOutDTO)response).getCompanyName());
+			request.setAttribute("branches", ((BranchOutDTO)response).getBranches());
+			return (BranchOutDTO)response;
 			
 		}
-		else
-		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
-		}
+		else 
+			return response;
+		
 		
 	}
 	
@@ -56,6 +50,7 @@ public class BranchPageHandler  implements IPageHandler {
 	public IResponseHandler executeWrite(HttpServletRequest request) {
 
 		IResponseHandler response = addBranch(request);
+		
 		response.setNavURL(getNavUrl(request));
 
 		return response;
@@ -75,18 +70,17 @@ public class BranchPageHandler  implements IPageHandler {
 		inDTO.setCity(city);
 		inDTO.setCountry(country);
 		inDTO.setPostalCode(postal);
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BranchService();
-		Object object = executor.callService(service, "SaveBranch", inDTO);
+
 		
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		IResponseHandler response = getServiceExecutor().callService(getService(), "SaveBranch", inDTO);
+		
+		if(isSuccess(response, request,true))
 		{
 			return getBranch(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
@@ -115,17 +109,16 @@ public class BranchPageHandler  implements IPageHandler {
 		BranchDTO dto = new BranchDTO();
 		dto.setBranchID(Long.valueOf(sBranchID));
 		
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BranchService();
-		Object object = executor.callService(service, "DeleteBranch", dto);
-		if(object instanceof BranchDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		
+		
+		IResponseHandler response = getServiceExecutor().callService(getService(), "DeleteBranch", dto);
+		if(isSuccess(response, request,true))
 		{
 			return getBranch(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			return response;
 		}
 	}
 
@@ -156,17 +149,22 @@ public class BranchPageHandler  implements IPageHandler {
 		dto.setCity(city);
 		dto.setCountry(country);
 		dto.setPostalCode(postal);
-		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BranchService();
-		Object object = executor.callService(service, "UpdateBranch", dto);
-		if(object instanceof BranchDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+
+		
+		IResponseHandler response = getServiceExecutor().callService(getService(), "UpdateBranch", dto);
+		if(isSuccess(response, request,true))
 		{
 			return getBranch(request);
 		}
 		else
 		{
-			BaseOutDTO errorOutDTO = new BaseOutDTO();
-			return errorOutDTO;
+			
+			return response;
 		}
+	}
+
+	@Override
+	protected ServiceBase getService() {
+		return (ServiceBase)SpringApplicationContext.getBean("branchService");
 	}
 }

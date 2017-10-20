@@ -12,6 +12,11 @@
 	
 		<p style="margin-left: 100px ">
 			<div id="iErrorPanel" style="margin-left: -100; color: red;" name="iErrorPanel">${iErrorPanel}</div>
+		<div class="alert alert-success fade in text-center blinking"
+			 id="alertSuccess">
+			 ${isuccessPanel}
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		</div>
 		<div id="menu">
 		    <ul class="menu">
 		       
