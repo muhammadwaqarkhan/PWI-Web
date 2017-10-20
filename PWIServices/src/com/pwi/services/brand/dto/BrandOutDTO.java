@@ -6,34 +6,23 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.pwi.dto.BaseDTO;
-import com.pwi.spring.SpringApplicationContext;
+
 @Component
-public class BrandOutDTO extends BaseDTO 
-{
-	
+public class BrandOutDTO extends BaseDTO {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 
 	List<BrandDTO> brands = new ArrayList<BrandDTO>();
 
-
-	
-	
 	public List<BrandDTO> getBrands() {
 		return brands;
 	}
-
 
 	public void setBrands(List<BrandDTO> brands) {
 		this.brands = brands;
 	}
 
-	
-	
-	
-
-	
 }

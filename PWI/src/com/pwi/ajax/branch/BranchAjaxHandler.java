@@ -3,44 +3,30 @@ package com.pwi.ajax.branch;
 import com.pwi.ajax.beans.StructAjaxResponse;
 import com.pwi.constants.ApplicationCodes;
 import com.pwi.constants.FrameworkReasonCodes;
-import com.pwi.dto.BaseOutDTO;
 import com.pwi.interfaces.IResponseHandler;
-import com.pwi.services.base.ServiceBase;
-import com.pwi.services.branch.BranchService;
 import com.pwi.services.branch.dto.BranchDTO;
 import com.pwi.services.branch.dto.BranchOutDTO;
-import com.pwi.services.framework.ServiceExecutor;
-import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 
-public class BranchAjaxHandler
-{
-	public StructAjaxResponse deleteBranch (Long branchID)
-	{
+public class BranchAjaxHandler {
+	public StructAjaxResponse deleteBranch(Long branchID) {
 		StructAjaxResponse ajaxResponse = new StructAjaxResponse();
-		try
-		{
+		try {
 
-			
 			BranchDTO dto = new BranchDTO();
 			dto.setBranchID(branchID);
-			
-			
-			ServiceBase service = new BranchService();
-			Object object =null;// getExecutor().callService(service, "DeleteBranch", dto);
-			
-			if(object instanceof BranchDTO)
-			{
-				if(((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
-				{
+
+			Object object = null;// getExecutor().callService(service,
+									// "DeleteBranch", dto);
+
+			if (object instanceof BranchDTO) {
+				if (((IResponseHandler) object).getErrorCode() == FrameworkReasonCodes.ERROR_NO) {
 					IResponseHandler response = getBranches();
-					
-					ajaxResponse.setHtmlString(makeBranchTable((BranchOutDTO)response));
+
+					ajaxResponse.setHtmlString(makeBranchTable((BranchOutDTO) response));
 				}
 			}
-				
-		}
-		catch (Exception e)
-		{
+
+		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
 			ajaxResponse.setError(ApplicationCodes.AJAX_ERROR);
 
@@ -49,26 +35,25 @@ public class BranchAjaxHandler
 
 	}
 
-	private IResponseHandler getBranches()
-	{
-		ServiceExecutor executor=null;//=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BranchService();
-		Object object = executor.callService(service, "FetchBranch", new BranchDTO());
-		if(object instanceof IResponseHandler)
-			return (IResponseHandler)object;
-		else
-			return new BaseOutDTO();
+	private IResponseHandler getBranches() {
+		// ServiceExecutor executor = null;//
+		// =BasePageHandler.getServiceExecutor();
+		// ServiceBase service = new BranchService();
+		// Object object = executor.callService(service, "FetchBranch", new
+		// BranchDTO());
+		/*
+		 * if (object instanceof IResponseHandler) return (IResponseHandler)
+		 * object; else return new BaseOutDTO();
+		 */
+
+		return null;
 	}
-	
 
-
-
-
-	private String makeBranchTable (BranchOutDTO outDTO)
-	{
+	private String makeBranchTable(BranchOutDTO outDTO) {
 		StringBuffer branchTable = new StringBuffer();
 
-		branchTable.append("<table id=\"branchesTable\" align=\"right\" class=\"table table-responsive table-bordered table-hover\">");
+		branchTable
+				.append("<table id=\"branchesTable\" align=\"right\" class=\"table table-responsive table-bordered table-hover\">");
 		branchTable.append("<thead><tr>");
 
 		StringBuffer tableHeaders = new StringBuffer();
@@ -86,10 +71,8 @@ public class BranchAjaxHandler
 
 		branchTable.append("<tbody>");
 
-		if (outDTO !=null)
-		{
-			for (BranchDTO branch : outDTO.getBranches())
-			{
+		if (outDTO != null) {
+			for (BranchDTO branch : outDTO.getBranches()) {
 				branchTable.append("<tr>");
 				branchTable.append("<td>").append(branch.getBranchID()).append("</td>");
 				branchTable.append("<td>").append(branch.getBranchName()).append("</td>");
@@ -98,7 +81,7 @@ public class BranchAjaxHandler
 				branchTable.append("<td>").append(branch.getCity()).append("</td>");
 				branchTable.append("<td>").append(branch.getPostalCode()).append("</td>");
 				branchTable.append("<td>").append(branch.getCountry()).append("</td>");
-				
+
 				branchTable.append("</tr>");
 			}
 		}
@@ -107,5 +90,4 @@ public class BranchAjaxHandler
 		return branchTable.toString();
 	}
 
-	
 }

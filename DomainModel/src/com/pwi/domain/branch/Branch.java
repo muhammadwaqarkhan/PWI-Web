@@ -21,98 +21,74 @@ import org.hibernate.annotations.NamedQuery;
 import com.pwi.domain.address.Address;
 import com.pwi.domain.company.Company;
 import com.pwi.domain.store.Store;
-import com.pwi.domain.user.UserAccounts;
-/**
- * Holds all data which is relevant to Branch 
- *  @author Waqar Contact 03346100977
- */
-@NamedQueries(  
-	    {  
-	        @NamedQuery(  
-	        name = Branch.Queries.READ_BY_ALL_BRANCHS,  
-	        query = "from com.pwi.domain.branch.Branch where status=:status"  
-	        ) ,//
-	        
-	        @NamedQuery(  
-	    	        name = Branch.Queries.READ_BY_PRIMARY_KEY,  
-	    	        query = "from com.pwi.domain.branch.Branch where branchID=:branchID"  
-	    	        ) ,//
-	    	        
-	       @NamedQuery(  
-	    	     name = Branch.Queries.READ_BY_BRANCH_NAME,  
-	    	     query = "from com.pwi.domain.branch.Branch where branchName=:branchName"  
-	    	     ) 
-	    	        
-	    }  
-)
 
+/**
+ * Holds all data which is relevant to Branch
+ * 
+ * @author Waqar Contact 03346100977
+ */
+@NamedQueries({
+		@NamedQuery(name = Branch.Queries.READ_BY_ALL_BRANCHS, query = "from com.pwi.domain.branch.Branch where status=:status"),//
+
+		@NamedQuery(name = Branch.Queries.READ_BY_PRIMARY_KEY, query = "from com.pwi.domain.branch.Branch where branchID=:branchID"),//
+
+		@NamedQuery(name = Branch.Queries.READ_BY_BRANCH_NAME, query = "from com.pwi.domain.branch.Branch where branchName=:branchName")
+
+})
 @Entity()
 @Table(name = "Branch", schema = "pwi")
 public class Branch {
 
-	
-	private static final int	BRANCH_LENGTH				= 45;
-	
-	
+	private static final int BRANCH_LENGTH = 45;
 
-	public static class Queries
-	{
-		public static final String	READ_BY_ALL_BRANCHS	= "Branch.ReadBranches";
-		public static final String	READ_BY_PRIMARY_KEY	= "Branch.ReadPrimaryKey";
-		public static final String	READ_BY_BRANCH_NAME	= "Branch.ReadBranchName";
-		
+	public static class Queries {
+		public static final String READ_BY_ALL_BRANCHS = "Branch.ReadBranches";
+		public static final String READ_BY_PRIMARY_KEY = "Branch.ReadPrimaryKey";
+		public static final String READ_BY_BRANCH_NAME = "Branch.ReadBranchName";
+
 	}
 
-	
 	@Column(name = "BRANCHID", insertable = false, updatable = false, nullable = false)
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long branchID;
-	
-	
+
 	@Size(max = BRANCH_LENGTH, message = "branchName")
 	@Column(name = "BRANCHNAME", length = BRANCH_LENGTH)
 	private String branchName;
-	
-	
+
 	@Column(name = "addressID", insertable = false, updatable = false, nullable = false)
 	private Long addressID;
-	
-	
+
 	@OneToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "addressID", referencedColumnName = "addressID", insertable=true, updatable=true)
-	private Address				address					= null;
-	
-	
+	@JoinColumn(name = "addressID", referencedColumnName = "addressID", insertable = true, updatable = true)
+	private Address address = null;
+
 	@Column(name = "STATUS")
 	private Integer status;
-	
-	
+
 	@Column(name = "COMPANYID", insertable = false, updatable = false, nullable = false)
 	private Long companyID;
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "companyID", referencedColumnName = "companyID")
-	private Company				company					= null;
-	
-	
-	
+	private Company company = null;
+
 	@OneToMany(mappedBy = "branch", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Store> stores				= null;
+	private List<Store> stores = null;
+
 	/**
-	 * Initializer for use by application code when constructing a new object for insertion into persistent store. 
+	 * Initializer for use by application code when constructing a new object
+	 * for insertion into persistent store.
 	 * 
 	 * @param Address
-	 *            The address of branch 
+	 *            The address of branch
 	 */
-	public void init(Address address)
-	{
-		this.address=address;
-		this.status= new Integer(1);
+	public void init(Address address) {
+		this.address = address;
+		this.status = new Integer(1);
 	}
-	
-	
-	
+
 	/**
 	 * Returns the primary key of the object
 	 * 
@@ -130,6 +106,7 @@ public class Branch {
 	public void setBranchID(Long branchID) {
 		this.branchID = branchID;
 	}
+
 	/**
 	 * @return branch name
 	 * @see #Branch name
@@ -137,7 +114,7 @@ public class Branch {
 	public String getBranchName() {
 		return branchName;
 	}
-	
+
 	/**
 	 * @param branchName
 	 *            set branchNameh
@@ -154,6 +131,7 @@ public class Branch {
 	public Long getAddressID() {
 		return addressID;
 	}
+
 	/**
 	 * @param addressID
 	 *            set addressID of branch
@@ -180,8 +158,6 @@ public class Branch {
 		this.address = address;
 	}
 
-
-
 	/**
 	 * @return status of branch
 	 * @see #status of branch
@@ -189,8 +165,6 @@ public class Branch {
 	public Integer getStatus() {
 		return status;
 	}
-
-
 
 	/**
 	 * @param status
@@ -209,6 +183,7 @@ public class Branch {
 	public Long getCompanyID() {
 		return companyID;
 	}
+
 	/**
 	 * @param companyID
 	 *            set companyID
@@ -221,7 +196,7 @@ public class Branch {
 	/**
 	 * Returns the Company object
 	 * 
-	 * @return company 
+	 * @return company
 	 */
 	public Company getCompany() {
 		return company;
@@ -236,21 +211,12 @@ public class Branch {
 		this.company = company;
 	}
 
-
 	public List<Store> getStores() {
 		return stores;
 	}
 
-
-
 	public void setStores(List<Store> stores) {
 		this.stores = stores;
 	}
-	
-	
-	
 
-
-	
-	
 }

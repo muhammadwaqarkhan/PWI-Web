@@ -9,10 +9,9 @@ import com.pwi.dto.BaseDTO;
 import com.pwi.interfaces.IRequestHandler;
 import com.pwi.services.product.dto.ProductOutDTO;
 import com.pwi.services.store.dto.StoreOutDTO;
-import com.pwi.spring.SpringApplicationContext;
 
 @Component
-public class StoreProductOutDTO extends BaseDTO implements IRequestHandler{
+public class StoreProductOutDTO extends BaseDTO implements IRequestHandler {
 
 	/**
 	 * 
@@ -20,11 +19,9 @@ public class StoreProductOutDTO extends BaseDTO implements IRequestHandler{
 	private static final long serialVersionUID = 1L;
 
 	List<StoreProductDTO> storeProducts = new ArrayList<StoreProductDTO>();
-	StoreOutDTO stores; 
+	StoreOutDTO stores;
 	ProductOutDTO products;
-	
-	
-	
+
 	public List<StoreProductDTO> getStoreProducts() {
 		return storeProducts;
 	}
@@ -49,7 +46,4 @@ public class StoreProductOutDTO extends BaseDTO implements IRequestHandler{
 		this.products = products;
 	}
 
-	
-
-	
 }

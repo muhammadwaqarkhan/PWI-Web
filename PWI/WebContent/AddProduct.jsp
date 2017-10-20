@@ -158,7 +158,7 @@
 						
 						<input type="submit" value="Add Product" name="Save" onclick="return setAction (1);">
 						<input type="button" id="update" name="update" value="update product" onclick="return setAction (3);">
-								
+						<input type="button" id="delete" name="delete" value="delete product" onclick="return setAction (2);">		
 					
 						<br/>
 					<div id="productDiv">

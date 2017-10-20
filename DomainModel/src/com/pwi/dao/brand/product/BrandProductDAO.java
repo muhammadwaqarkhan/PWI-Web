@@ -7,7 +7,6 @@ import org.hibernate.Session;
 
 import com.pwi.dao.base.BaseDAO;
 import com.pwi.domain.brand.product.BrandProduct;
-import com.pwi.domain.user.UserAccounts;
 import com.pwi.spring.SpringApplicationContext;
 
 public class BrandProductDAO extends BaseDAO implements IBrandProductDAO{

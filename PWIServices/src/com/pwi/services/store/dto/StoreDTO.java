@@ -6,10 +6,9 @@ import com.pwi.domain.store.Store;
 import com.pwi.dto.BaseDTO;
 import com.pwi.interfaces.IRequestHandler;
 import com.pwi.services.address.dto.AddressDTO;
-import com.pwi.services.product.dto.ProductOutDTO;
-import com.pwi.spring.SpringApplicationContext;
+
 @Component
-public class StoreDTO extends BaseDTO implements IRequestHandler{
+public class StoreDTO extends BaseDTO implements IRequestHandler {
 
 	/**
 	 * 
@@ -21,57 +20,58 @@ public class StoreDTO extends BaseDTO implements IRequestHandler{
 	private String brancheName;
 	private Long branchID;
 	private AddressDTO address = new AddressDTO();
-	
-	
-	
-	public String getStoreName() 
-	{
+
+	public String getStoreName() {
 		return storeName;
 	}
-	public void setStoreName(String storeName) 
-	{
+
+	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
-	public Long getStoreID() 
-	{
+
+	public Long getStoreID() {
 		return storeID;
 	}
-	public void setStoreID(Long storeID) 
-	{
+
+	public void setStoreID(Long storeID) {
 		this.storeID = storeID;
 	}
-	
-	
+
 	public Long getBranchID() {
 		return branchID;
 	}
+
 	public void setBranchID(Long branchID) {
 		this.branchID = branchID;
 	}
+
 	public String getBrancheName() {
 		return brancheName;
 	}
+
 	public void setBrancheName(String brancheName) {
 		this.brancheName = brancheName;
 	}
+
 	public AddressDTO getAddress() {
 		return address;
 	}
+
 	public void setAddress(AddressDTO address) {
 		this.address = address;
 	}
-	public StoreDTO assemble(Store store)
-	{
-		this.storeID=store.getStoreID();
-		this.storeName=store.getName();
-		this.branchID=store.getBranchID();
-		this.brancheName=store.getBranch().getBranchName();
+
+	public StoreDTO assemble(Store store) {
+		this.storeID = store.getStoreID();
+		this.storeName = store.getName();
+		this.branchID = store.getBranchID();
+		this.brancheName = store.getBranch().getBranchName();
 		this.address.setStreet(store.getAddress().getStreet());
 		this.address.setCity(store.getAddress().getCity());
 		this.address.setCountry(store.getAddress().getCountry());
 		this.address.setPostalCode(store.getAddress().getPostCode());
 		this.address.setAddressID(store.getAddress().getAddressID());
 		return this;
-		
+
 	}
 }

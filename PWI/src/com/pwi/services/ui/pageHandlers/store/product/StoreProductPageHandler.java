@@ -2,16 +2,10 @@ package com.pwi.services.ui.pageHandlers.store.product;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Component;
-
 import com.pwi.constants.FrameNames;
-import com.pwi.constants.FrameworkReasonCodes;
-import com.pwi.dto.BaseOutDTO;
 import com.pwi.interfaces.IPageHandler;
 import com.pwi.interfaces.IResponseHandler;
 import com.pwi.services.base.ServiceBase;
-import com.pwi.services.framework.ServiceExecutor;
-import com.pwi.services.store.product.StoreProductService;
 import com.pwi.services.store.product.dto.StoreProductDTO;
 import com.pwi.services.store.product.dto.StoreProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
@@ -76,7 +70,7 @@ public class StoreProductPageHandler extends BasePageHandler  implements IPageHa
 		
 		StoreProductDTO inDTO= new StoreProductDTO ();
 		inDTO.setStoreID(Long.valueOf(store));
-		inDTO.setProductID(Long.valueOf(store));
+		inDTO.setProductID(Long.valueOf(products));
 		inDTO.setInstock(isInstock);
 		inDTO.setQuantity(Integer.valueOf(quantity));
 		inDTO.setInTransit(Integer.valueOf(InTransit));

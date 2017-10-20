@@ -14,106 +14,73 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import com.pwi.constants.PWICodes;
-import com.pwi.domain.brand.Brand;
 import com.pwi.domain.product.Product;
 import com.pwi.domain.store.Store;
+
 /**
- * Holds all data which is relevant to StoreProduct 
- *  @author Waqar Contact 03346100977
+ * Holds all data which is relevant to StoreProduct
+ * 
+ * @author Waqar Contact 03346100977
  */
 
-@NamedQueries(  
-	    {  
-	        @NamedQuery(  
-	        name = StoreProduct.Queries.READ_BY_ALL_STORE_PRODUCT,  
-	        query = "from StoreProduct"  
-	        ) ,//
-	        
-	        @NamedQuery(  
-	    	        name = StoreProduct.Queries.READ_BY_PRIMARY_KEY,  
-	    	        query = "from StoreProduct where storeProductID=:storeProductID"  
-	    	) ,//
-	        @NamedQuery(  
-	    	        name = StoreProduct.Queries.READ_BY_STORE_ID,  
-	    	        query = "from StoreProduct where storeID=:storeID"  
-	    	) ,//
-	        @NamedQuery(  
-	    	        name = StoreProduct.Queries.READ_BY_PRODUCT_ID,  
-	    	        query = "from StoreProduct where productID=:productID"  
-	    	)
-	        ,//
-	        @NamedQuery(  
-	    	        name = StoreProduct.Queries.READ_BY_STORE_PRODUCT_ID,  
-	    	        query = "from StoreProduct where productID=:productID and storeID=:storeID"  
-	    	)
-	    }  
-)
+@NamedQueries({
+		@NamedQuery(name = StoreProduct.Queries.READ_BY_ALL_STORE_PRODUCT, query = "from StoreProduct"),//
+
+		@NamedQuery(name = StoreProduct.Queries.READ_BY_PRIMARY_KEY, query = "from StoreProduct where storeProductID=:storeProductID"),//
+		@NamedQuery(name = StoreProduct.Queries.READ_BY_STORE_ID, query = "from StoreProduct where storeID=:storeID"),//
+		@NamedQuery(name = StoreProduct.Queries.READ_BY_PRODUCT_ID, query = "from StoreProduct where productID=:productID"),//
+		@NamedQuery(name = StoreProduct.Queries.READ_BY_STORE_PRODUCT_ID, query = "from StoreProduct where productID=:productID and storeID=:storeID") })
 @Entity()
 @Table(name = "StoreProduct", schema = "pwi")
 public class StoreProduct {
 
-	public static class Queries
-	{
-		public static final String	READ_BY_ALL_STORE_PRODUCT= "StoreProduct.ReadStoreProducts";
-		public static final String	READ_BY_PRIMARY_KEY	= "StoreProduct.ReadPrimaryKey";
-		public static final String	READ_BY_STORE_ID	= "StoreProduct.ReadStoreID";
-		public static final String	READ_BY_PRODUCT_ID	= "StoreProduct.ReadProductID";
-		public static final String	READ_BY_STORE_PRODUCT_ID	= "StoreProduct.ReadStoreProductID";
-		
-		
+	public static class Queries {
+		public static final String READ_BY_ALL_STORE_PRODUCT = "StoreProduct.ReadStoreProducts";
+		public static final String READ_BY_PRIMARY_KEY = "StoreProduct.ReadPrimaryKey";
+		public static final String READ_BY_STORE_ID = "StoreProduct.ReadStoreID";
+		public static final String READ_BY_PRODUCT_ID = "StoreProduct.ReadProductID";
+		public static final String READ_BY_STORE_PRODUCT_ID = "StoreProduct.ReadStoreProductID";
+
 	}
-	
-	private static final int	INSTOCK_LENGTH					= 1;
-	
+
+	private static final int INSTOCK_LENGTH = 1;
+
 	@Column(name = "STOREPRODUCTID", insertable = false, updatable = false, nullable = false)
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long storeProductID;
-	
-	
+
 	@Column(name = "productID", insertable = false, updatable = false, nullable = false)
 	private Long productID;
-	
+
 	@Column(name = "storeID", insertable = false, updatable = false, nullable = false)
 	private Long storeID;
-	
-	
-	
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "productID", referencedColumnName = "productID")
-	private Product				product					= null;
-	
-	
+	private Product product = null;
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "storeID", referencedColumnName = "storeID")
-	private Store				store					= null;
-	
-	
-	
-	@Column(name = "instock", updatable = true,length = INSTOCK_LENGTH)
+	private Store store = null;
+
+	@Column(name = "instock", updatable = true, length = INSTOCK_LENGTH)
 	private Integer instock;
-	
-	
-	@Column(name = "quantity",updatable = true)
+
+	@Column(name = "quantity", updatable = true)
 	private Integer quantity;
-	
+
 	@Column(name = "InTransit", updatable = true)
 	private Integer InTransit;
-	
-	
-	@Column(name = "reorderPoint",  updatable = true)
+
+	@Column(name = "reorderPoint", updatable = true)
 	private Integer reorderPoint;
 
-	
-	
-	public void init(Store store,Product product)
-	{
-		this.store=store;
-		this.product=product;
+	public void init(Store store, Product product) {
+		this.store = store;
+		this.product = product;
 	}
 
-	
-	
 	/**
 	 * Returns the primary key of the object
 	 * 
@@ -140,6 +107,7 @@ public class StoreProduct {
 	public Long getProductID() {
 		return productID;
 	}
+
 	/**
 	 * @param productID
 	 *            set Key
@@ -157,6 +125,7 @@ public class StoreProduct {
 	public Long getStoreID() {
 		return storeID;
 	}
+
 	/**
 	 * @param storeID
 	 *            set Key
@@ -183,15 +152,15 @@ public class StoreProduct {
 	}
 
 	public boolean getInstock() {
-		if( this.instock != null && instock.intValue() == PWICodes.INDICATOR_TRUE)
+		if (this.instock != null && instock.intValue() == PWICodes.INDICATOR_TRUE)
 			return true;
 		else
 			return false;
-		
+
 	}
 
 	public void setInstock(Boolean instock) {
-		if(instock)
+		if (instock)
 			this.instock = PWICodes.INDICATOR_TRUE;
 		else
 			this.instock = PWICodes.INDICATOR_FALSE;
@@ -220,7 +189,5 @@ public class StoreProduct {
 	public void setReorderPoint(Integer reorderPoint) {
 		this.reorderPoint = reorderPoint;
 	}
-	
 
-	
 }

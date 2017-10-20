@@ -17,98 +17,74 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import com.pwi.domain.brand.product.BrandProduct;
-import com.pwi.domain.company.Company;
 import com.pwi.domain.product.store.StoreProduct;
+
 /**
- * Holds all data which is relevant to Product 
- *  @author Waqar Contact 03346100977
+ * Holds all data which is relevant to Product
+ * 
+ * @author Waqar Contact 03346100977
  */
 
-@NamedQueries(  
-	    {  
-	        @NamedQuery(  
-	    	        name = Product.Queries.READ_BY_PRIMARY_KEY,  
-	    	        query = "from com.pwi.domain.product.Product where productID=:productID"  
-	    	        ) ,//
-	    	@NamedQuery(  
-	    			name = Product.Queries.READ_BY_ALL_PRODUCTS,  
-	    	    	query = "from com.pwi.domain.product.Product"  
-	    	       ) ,//
-	    	@NamedQuery(  
-	    			name = Product.Queries.READ_BY_SIZE_NAME_TYPE,  
-	    	    	query = "from com.pwi.domain.product.Product where  productName=:productName and size=:size and productType=:productType"  
-	    	       ) ,//
-	    	@NamedQuery(  
-	    			name = Product.Queries.READ_BY_NAME,  
-	    	    	query = "from com.pwi.domain.product.Product where  productName=:productName"  
-	    	       ) 
-	    }  
-)
-
+@NamedQueries({
+		@NamedQuery(name = Product.Queries.READ_BY_PRIMARY_KEY, query = "from com.pwi.domain.product.Product where productID=:productID"),//
+		@NamedQuery(name = Product.Queries.READ_BY_ALL_PRODUCTS, query = "from com.pwi.domain.product.Product"),//
+		@NamedQuery(name = Product.Queries.READ_BY_SIZE_NAME_TYPE, query = "from com.pwi.domain.product.Product where  productName=:productName and size=:size and productType=:productType"),//
+		@NamedQuery(name = Product.Queries.READ_BY_NAME, query = "from com.pwi.domain.product.Product where  productName=:productName") })
 @Entity()
 @Table(name = "product", schema = "pwi")
 public class Product {
 
-	
-	public static class Queries
-	{
-		public static final String	READ_BY_PRIMARY_KEY		= "Product.ReadPrimaryKey";
-		public static final String	READ_BY_ALL_PRODUCTS	= "Product.ReadProducts";
-		public static final String	READ_BY_SIZE_NAME_TYPE	= "Product.readBySizeNameAndType";
-		public static final String	READ_BY_NAME		 	= "Product.readByName";
-		
+	public static class Queries {
+		public static final String READ_BY_PRIMARY_KEY = "Product.ReadPrimaryKey";
+		public static final String READ_BY_ALL_PRODUCTS = "Product.ReadProducts";
+		public static final String READ_BY_SIZE_NAME_TYPE = "Product.readBySizeNameAndType";
+		public static final String READ_BY_NAME = "Product.readByName";
+
 	}
-	private static final int	PRODUCT_CODE_LENGTH				= 45;
-	private static final int	PRODUCT_TYPE_LENGTH				= 45;	
-	
-	
+
+	private static final int PRODUCT_CODE_LENGTH = 45;
+	private static final int PRODUCT_TYPE_LENGTH = 45;
+
 	@Column(name = "productID", insertable = false, updatable = false, nullable = false)
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long productID;
-	
+
 	@Size(max = PRODUCT_CODE_LENGTH, message = "productName")
-	@Column(name = "productName" , length = PRODUCT_CODE_LENGTH)
+	@Column(name = "productName", length = PRODUCT_CODE_LENGTH)
 	private String productName;
-	
-	
+
 	@Size(max = PRODUCT_TYPE_LENGTH, message = "productType")
-	@Column(name = "productType",  length = PRODUCT_TYPE_LENGTH)
+	@Column(name = "productType", length = PRODUCT_TYPE_LENGTH)
 	private String productType;
-	
-	
+
 	@Column(name = "MOQ", updatable = true)
 	private Integer MOQ;
-	
-	
 
-	
-	@Column(name = "Size",  updatable = true)
+	@Column(name = "Size", updatable = true)
 	private Integer size;
-	
-	@Column(name = "QPB",  updatable = true)
-	private Integer QPB;
-	
-	
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<StoreProduct> storeProduct				= null;
-	
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<BrandProduct> brandProduct				= null;
 
-	
+	@Column(name = "QPB", updatable = true)
+	private Integer QPB;
+
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<StoreProduct> storeProduct = null;
+
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BrandProduct> brandProduct = null;
+
 	/**
-	 * Initializer for use by application code when constructing a new object for insertion into persistent store. 
+	 * Initializer for use by application code when constructing a new object
+	 * for insertion into persistent store.
 	 * 
 	 * @param Address
-	 *            The address of branch 
+	 *            The address of branch
 	 */
-	public void init()
-	{
-		//this.address=address;
-		//this.status= PWICodes.INDICATOR_TRUE;
+	public void init() {
+		// this.address=address;
+		// this.status= PWICodes.INDICATOR_TRUE;
 	}
-	
+
 	/**
 	 * Returns productID
 	 * 
@@ -117,6 +93,7 @@ public class Product {
 	public Long getProductID() {
 		return productID;
 	}
+
 	/**
 	 * @param productID
 	 *            set Key of productID
@@ -131,10 +108,11 @@ public class Product {
 	 * 
 	 * @return key
 	 */
-	
+
 	public String getProductName() {
 		return productName;
 	}
+
 	/**
 	 * @param code
 	 *            set Key of code
@@ -144,16 +122,15 @@ public class Product {
 		this.productName = productName;
 	}
 
-	
-
 	/**
-	 * Returns product Type 
+	 * Returns product Type
 	 * 
 	 * @return productType
 	 */
 	public String getProductType() {
 		return productType;
 	}
+
 	/**
 	 * @param productType
 	 *            set Key of productType
@@ -166,11 +143,12 @@ public class Product {
 	/**
 	 * Returns MOQ
 	 * 
-	 * @return  is MOQ
+	 * @return is MOQ
 	 */
 	public Integer getMOQ() {
 		return MOQ;
 	}
+
 	/**
 	 * @param mOQ
 	 *            set Key of mOQ
@@ -179,7 +157,7 @@ public class Product {
 	public void setMOQ(Integer mOQ) {
 		MOQ = mOQ;
 	}
-	
+
 	public Integer getSize() {
 		return size;
 	}
@@ -200,8 +178,6 @@ public class Product {
 		return storeProduct;
 	}
 
-
-
 	public List<BrandProduct> getBrandProduct() {
 		return brandProduct;
 	}
@@ -214,5 +190,4 @@ public class Product {
 		this.storeProduct = storeProduct;
 	}
 
-	
 }

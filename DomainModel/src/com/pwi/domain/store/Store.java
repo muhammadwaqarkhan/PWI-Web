@@ -21,7 +21,6 @@ import org.hibernate.annotations.NamedQuery;
 
 import com.pwi.domain.address.Address;
 import com.pwi.domain.branch.Branch;
-import com.pwi.domain.company.Company;
 import com.pwi.domain.product.store.StoreProduct;
 
 /**

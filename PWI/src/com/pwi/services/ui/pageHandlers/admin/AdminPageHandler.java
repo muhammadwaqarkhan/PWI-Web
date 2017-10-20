@@ -5,15 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import com.pwi.interfaces.IPageHandler;
 import com.pwi.interfaces.IResponseHandler;
 
-public class AdminPageHandler   implements IPageHandler
-{
+public class AdminPageHandler implements IPageHandler {
 
 	@Override
 	public IResponseHandler executeRead(HttpServletRequest request) {
-		String userName = request.getParameter("username");
-		String password = request.getParameter("password");
+		// String userName = request.getParameter("username");
+		// String password = request.getParameter("password");
 
-	
 		return null;
 	}
 
@@ -35,5 +33,4 @@ public class AdminPageHandler   implements IPageHandler
 		return null;
 	}
 
-	
 }

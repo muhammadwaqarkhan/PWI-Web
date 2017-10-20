@@ -71,6 +71,25 @@ public class BrandProductService extends ServiceBase
 		return dto;
 	}
 	
+	/***
+	 * This method called to save brand product
+	 * 
+	 * @param BrandProductDTO which contain brand information and product information
+	 *            
+	 * @return IResponseHandler which contain request status
+	 */
+	@ServiceMethod(name = "DeleteBrandProduct")
+	public IResponseHandler deleteBrandProduct(BrandProductDTO dto)
+	{	
+		BrandProduct bp = BrandProductDAO.getInstance(getSession()).findByPrimaryKey(dto.getBrandProductID());
+		
+		getSession().delete(bp);
+		
+		return dto;
+	}
+	
+	
+	
 	
 	
 }

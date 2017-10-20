@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.pwi.dto.BaseDTO;
-import com.pwi.spring.SpringApplicationContext;
+
 @Component
-public class ProductOutDTO  extends BaseDTO {
+public class ProductOutDTO extends BaseDTO {
 
 	/**
 	 * 
@@ -17,8 +17,6 @@ public class ProductOutDTO  extends BaseDTO {
 
 	List<ProductDTO> products = new ArrayList<ProductDTO>();
 
-	
-	
 	public List<ProductDTO> getProducts() {
 		return products;
 	}

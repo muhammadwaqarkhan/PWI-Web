@@ -11,10 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Endpoint;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.spring.SpringApplicationContext;
 import com.pwi.ws.branch.JaxBranchServices;
 import com.pwi.ws.product.JaxProductServices;
@@ -27,40 +23,35 @@ import com.pwi.ws.store.JaxStoreServices;
  * @author Waqar khanw
  */
 @WebServlet(name = "PWIStartServlet", loadOnStartup = 1, urlPatterns = "/PWIStartServlet")
-public class PWIStartServlet extends HttpServlet
-{
+public class PWIStartServlet extends HttpServlet {
 	// private Thread thread = null;
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public PWIStartServlet()
-	{
+	public PWIStartServlet() {
 		System.out.println("server call");
 	}
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
-	public void init(ServletConfig config) throws ServletException
-	{
-		
-		 SpringApplicationContext.getInstance();
-		 Endpoint.publish("http://localhost:7779/PWI/Products", new JaxProductServices());
-		 Endpoint.publish("http://localhost:7779/PWI/Stores", new JaxStoreServices());
-		 Endpoint.publish("http://localhost:7779/PWI/Branch", new JaxBranchServices());
-		 
-		
+	public void init(ServletConfig config) throws ServletException {
+
+		SpringApplicationContext.getInstance();
+		Endpoint.publish("http://localhost:7779/PWI/Products", new JaxProductServices());
+		Endpoint.publish("http://localhost:7779/PWI/Stores", new JaxStoreServices());
+		Endpoint.publish("http://localhost:7779/PWI/Branch", new JaxBranchServices());
+
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
 
@@ -68,8 +59,8 @@ public class PWIStartServlet extends HttpServlet
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException {
 
 	}
 

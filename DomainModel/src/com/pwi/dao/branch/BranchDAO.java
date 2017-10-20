@@ -4,15 +4,12 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.pwi.constants.PWICodes;
 import com.pwi.dao.base.BaseDAO;
 import com.pwi.domain.branch.Branch;
-import com.pwi.domain.user.UserAccounts;
 import com.pwi.spring.SpringApplicationContext;
 
 /**

@@ -2,14 +2,16 @@ package com.pwi.dto;
 
 import com.pwi.interfaces.IResponseHandler;
 
-public class BaseDTO implements IResponseHandler
-{
-	private int errorCode=0;
+public class BaseDTO implements IResponseHandler {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int errorCode = 0;
 	private String errorString;
 	private String navURL;
 
-
-	private boolean				bForward	= true;
+	private boolean bForward = true;
 
 	@Override
 	public int getErrorCode() {
@@ -22,18 +24,17 @@ public class BaseDTO implements IResponseHandler
 
 		return this.errorString;
 	}
-	
-	
+
 	@Override
 	public void setErrorCode(int errorCode) {
 
-		this.errorCode=errorCode;
+		this.errorCode = errorCode;
 	}
 
 	@Override
-	public void  setErrorString(String errorString) {
+	public void setErrorString(String errorString) {
 
-		this.errorString=errorString;
+		this.errorString = errorString;
 	}
 
 	@Override
@@ -44,8 +45,8 @@ public class BaseDTO implements IResponseHandler
 
 	@Override
 	public void setNavURL(String url) {
-		this.navURL=url;
-		
+		this.navURL = url;
+
 	}
 
 	public boolean isbForward() {

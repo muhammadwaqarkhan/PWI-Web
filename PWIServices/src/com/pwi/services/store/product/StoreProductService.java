@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dao.product.ProductDAO;
 import com.pwi.dao.store.StoreDAO;
 import com.pwi.dao.store.product.StoreProductDAO;
@@ -63,17 +64,21 @@ public class StoreProductService extends ServiceBase
 	@ServiceMethod(name = "SaveStoreProduct")
 	public IResponseHandler saveStoreProduct(StoreProductDTO dto)
 	{	
-		Store store = StoreDAO.getInstance(getSession()).findByPrimaryKey(dto.getStoreID());
-		Product product = ProductDAO.getInstance(getSession()).findByPrimaryKey(dto.getProductID());
+		 if(validate(dto))
+		 {
+			 	Store store = StoreDAO.getInstance(getSession()).findByPrimaryKey(dto.getStoreID());
+				Product product = ProductDAO.getInstance(getSession()).findByPrimaryKey(dto.getProductID());
+				
+				StoreProduct sp = DomainFactory.getInstance().newStoreProduct(store, product);
+				
+				sp.setInstock(dto.isInstock());
+				sp.setInTransit(dto.getInTransit());
+				sp.setQuantity(dto.getQuantity());
+				sp.setReorderPoint(dto.getReorderPoint());
+				
+				getSession().persist(sp); 
+		 }
 		
-		StoreProduct sp = DomainFactory.getInstance().newStoreProduct(store, product);
-		
-		sp.setInstock(dto.isInstock());
-		sp.setInTransit(dto.getInTransit());
-		sp.setQuantity(dto.getQuantity());
-		sp.setReorderPoint(dto.getReorderPoint());
-		
-		getSession().persist(sp);
 		
 		return dto;
 	}
@@ -164,5 +169,18 @@ public class StoreProductService extends ServiceBase
 			
 		
 		return sps;
+	}
+	
+	
+	private boolean validate(StoreProductDTO dto)
+	{
+		List<StoreProduct> sps =StoreProductDAO.getInstance(getSession()).readByStoreIDProductID(dto.getProductID(), dto.getStoreID());
+		if(sps!=null && sps.size() >0)
+		{
+			dto.setErrorCode(FrameworkReasonCodes.GENERAL_ERROR);
+			dto.setErrorString("Product already exist against Store");
+			return false;
+		}
+		return true;
 	}
 }

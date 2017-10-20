@@ -7,7 +7,7 @@ import com.pwi.interfaces.IRequestHandler;
 import com.pwi.interfaces.IResponseHandler;
 import com.pwi.services.branch.dto.BranchOutDTO;
 import com.pwi.services.store.dto.StoreOutDTO;
-import com.pwi.spring.SpringApplicationContext;
+
 @Component
 public class BranchStoreDTO extends BaseDTO implements IRequestHandler {
 
@@ -18,18 +18,20 @@ public class BranchStoreDTO extends BaseDTO implements IRequestHandler {
 
 	StoreOutDTO storeDTO = new StoreOutDTO();
 	BranchOutDTO branchDTO = new BranchOutDTO();
-	
-	
+
 	public StoreOutDTO getStoreDTO() {
 		return storeDTO;
 	}
+
 	public void setStoreDTO(IResponseHandler storeDTO) {
-		this.storeDTO =(StoreOutDTO) storeDTO;
+		this.storeDTO = (StoreOutDTO) storeDTO;
 	}
+
 	public BranchOutDTO getBranchDTO() {
 		return branchDTO;
 	}
+
 	public void setBranchDTO(IResponseHandler branchDTO) {
-		this.branchDTO = (BranchOutDTO)branchDTO;
+		this.branchDTO = (BranchOutDTO) branchDTO;
 	}
 }

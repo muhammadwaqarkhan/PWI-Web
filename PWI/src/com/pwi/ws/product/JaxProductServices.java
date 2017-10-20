@@ -14,7 +14,6 @@ import com.pwi.services.framework.ServiceExecutor;
 import com.pwi.services.product.ProductService;
 import com.pwi.services.product.dto.ProductDTO;
 import com.pwi.services.product.dto.ProductOutDTO;
-import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.spring.SpringApplicationContext;
 import com.pwi.ws.product.dto.JaxDeleteProductDTO;
 import com.pwi.ws.product.dto.JaxProductDTO;
@@ -23,19 +22,17 @@ import com.pwi.ws.product.dto.JaxProductSizeOutDTO;
 
 @WebService(targetNamespace = "com.pwi.ws.JaxProductServices")
 @HandlerChain(file = "JAXSoapServiceHandler.xml")
-public class JaxProductServices implements IJaxProductServices
-{
-	
+public class JaxProductServices implements IJaxProductServices {
+
 	@Override
-	public String addProduct(JaxProductDTO input) 
-	{
-		
+	public String addProduct(JaxProductDTO input) {
+
 		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "SaveProduct", input.assemble());
-		
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
-		{
+
+		if (object instanceof IResponseHandler
+				&& ((IResponseHandler) object).getErrorCode() == FrameworkReasonCodes.ERROR_NO) {
 			return "success";
 		}
 
@@ -44,13 +41,13 @@ public class JaxProductServices implements IJaxProductServices
 
 	@Override
 	public String updateProduct(JaxProductDTO input) {
-		
+
 		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "UpdateProduct", input.assemble());
-		
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
-		{
+
+		if (object instanceof IResponseHandler
+				&& ((IResponseHandler) object).getErrorCode() == FrameworkReasonCodes.ERROR_NO) {
 			return "success";
 		}
 
@@ -58,16 +55,14 @@ public class JaxProductServices implements IJaxProductServices
 	}
 
 	@Override
-	public String deleteProduct(JaxDeleteProductDTO input) 
-	{
+	public String deleteProduct(JaxDeleteProductDTO input) {
 
-		
 		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "DeleteProduct", input.assemble());
-		
-		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() ==FrameworkReasonCodes.ERROR_NO )
-		{
+
+		if (object instanceof IResponseHandler
+				&& ((IResponseHandler) object).getErrorCode() == FrameworkReasonCodes.ERROR_NO) {
 			return "success";
 		}
 
@@ -75,33 +70,29 @@ public class JaxProductServices implements IJaxProductServices
 	}
 
 	@Override
-	public ProductOutDTO getProduct(Header header) 
-	{
+	public ProductOutDTO getProduct(Header header) {
 		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "FetchProduct", new ProductDTO());
-		
-		if(object instanceof ProductOutDTO )
-		{
-			return (ProductOutDTO)object;
+
+		if (object instanceof ProductOutDTO) {
+			return (ProductOutDTO) object;
 		}
-		
+
 		return new ProductOutDTO();
 
 	}
 
 	@Override
 	public List<JaxProductSizeOutDTO> productSize(JaxProductSizeDTO input) {
-		
+
 		ServiceExecutor executor = (ServiceExecutor) SpringApplicationContext.getBean("serviceExecutor");
 		ServiceBase base = new ProductService();
 		Object object = executor.callService(base, "WebServiceFetchProduct", input.assemble());
-		
+
 		List<JaxProductSizeOutDTO> output = new ArrayList<JaxProductSizeOutDTO>();
-		if(object instanceof ProductOutDTO )
-		{
-			for(ProductDTO dto : ((ProductOutDTO)object).getProducts())
-			{
+		if (object instanceof ProductOutDTO) {
+			for (ProductDTO dto : ((ProductOutDTO) object).getProducts()) {
 				JaxProductSizeOutDTO jaxDto = new JaxProductSizeOutDTO();
 				jaxDto.setProductName(dto.getProductName());
 				jaxDto.setProductID(dto.getProductID());
@@ -109,7 +100,7 @@ public class JaxProductServices implements IJaxProductServices
 				output.add(jaxDto);
 			}
 		}
-		
+
 		return output;
 	}
 }

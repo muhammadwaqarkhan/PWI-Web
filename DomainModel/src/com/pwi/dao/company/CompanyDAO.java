@@ -4,7 +4,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.pwi.dao.base.BaseDAO;
-import com.pwi.domain.branch.Branch;
 import com.pwi.domain.company.Company;
 import com.pwi.spring.SpringApplicationContext;
 

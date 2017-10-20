@@ -3,41 +3,36 @@ package com.pwi.services.user.dto;
 import org.springframework.stereotype.Component;
 
 import com.pwi.interfaces.IRequestHandler;
-import com.pwi.spring.SpringApplicationContext;
+
 @Component
-public class UserAccountsInDTO implements IRequestHandler
-{
+public class UserAccountsInDTO implements IRequestHandler {
 
-	private String	username	= "";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2343638936436424999L;
 
-	private String	password	= "";
-	
-	
-	private boolean	isthroughuser = true;
-	
-	
+	private String username = "";
 
-	public String getUsername ()
-	{
+	private String password = "";
+
+	private boolean isthroughuser = true;
+
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername (String username)
-	{
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public String getPassword ()
-	{
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword (String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	
 
 	public boolean isIsthroughuser() {
 		return isthroughuser;
@@ -47,5 +42,4 @@ public class UserAccountsInDTO implements IRequestHandler
 		this.isthroughuser = isthroughuser;
 	}
 
-	
 }
