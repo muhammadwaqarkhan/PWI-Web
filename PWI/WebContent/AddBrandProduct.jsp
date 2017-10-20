@@ -62,23 +62,32 @@
 		$('#selectedID').val(ID);
 		
 		
-		var store = $('td', this).eq(1).text();
+		var brandName = $('td', this).eq(1).text();
 		var products = $('td', this).eq(2).text();
-		var quantity = $('td', this).eq(3).text();
-		var reorderPoint = $('td', this).eq(4).text();
-		var InTransit = $('td', this).eq(5).text();
-		var instock = $('td', this).eq(6).text();
+
 		
 		
 		
-		$('#store').val(store);
+		//$('#brand').val(brandName);
+		//$('#products').val(products);
 		
-		$('#products').val(products);
-		$('#instock').val(instock);
-		$('#InTransit').val(InTransit);
-		$('#quantity').val(quantity);
-		$('#reorderPoint').val(reorderPoint);
+			    
+
+		var brandOptions = document.getElementById('brand');
+		for (var i = 0; i < brandOptions.options.length; i++) {
+		    if (brandOptions.options[i].text === brandName) {
+		    	brandOptions.selectedIndex = i;
+		        break;
+		    }
+		}
 		
+		var productsOptions = document.getElementById('products');
+		for (var i = 0; i < productsOptions.options.length; i++) {
+		    if (productsOptions.options[i].text === products) {
+		    	productsOptions.selectedIndex = i;
+		        break;
+		    }
+		}
 		
 		
 		

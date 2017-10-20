@@ -17,6 +17,7 @@ import com.pwi.services.framework.ServiceExecutor;
 import com.pwi.services.store.product.StoreProductService;
 import com.pwi.services.store.product.dto.StoreProductDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 
 public class BrandProductPageHandler  implements IPageHandler {
 
@@ -31,7 +32,8 @@ public class BrandProductPageHandler  implements IPageHandler {
 	protected IResponseHandler getBrandProducts(HttpServletRequest request) 
 	{
 		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BrandProductService();
+
+		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("brandProductService");
 		Object object = executor.callService(service, "FetchBrandProduct", new StoreProductDTO());
 		if(object instanceof BrandProductOutDTO)
 		{	

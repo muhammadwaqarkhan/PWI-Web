@@ -18,7 +18,7 @@ import com.pwi.services.branch.dto.BranchDTO;
 import com.pwi.services.branch.dto.BranchOutDTO;
 import com.pwi.services.branch.dto.BranchStoreProductOutDTO;
 import com.pwi.services.framework.annotations.ServiceMethod;
-
+@Service
 public class BranchService extends ServiceBase{
 
 	/***
@@ -94,7 +94,8 @@ public class BranchService extends ServiceBase{
 		
 		for(Store store :branch.getStores())
 		{
-			getSession().delete(store.getStoreProduct());
+			if(store.getStoreProduct().size()>0)
+				getSession().delete(store.getStoreProduct());
 			getSession().delete(store);
 		}
 		

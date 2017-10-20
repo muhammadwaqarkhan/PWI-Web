@@ -1,5 +1,7 @@
 package com.pwi.services.user;
 
+import org.springframework.stereotype.Service;
+
 import com.pwi.constants.FrameworkReasonCodes;
 import com.pwi.dao.user.UserAccountsDAO;
 import com.pwi.domain.user.UserAccounts;
@@ -8,6 +10,7 @@ import com.pwi.services.base.ServiceBase;
 import com.pwi.services.framework.annotations.ServiceMethod;
 import com.pwi.services.user.dto.UserAccountsInDTO;
 import com.pwi.services.user.dto.UserAccountsOutDTO;
+@Service
 public class UserAccountsService extends ServiceBase{
 
 	/***

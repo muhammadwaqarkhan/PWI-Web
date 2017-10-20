@@ -3,6 +3,8 @@ package com.pwi.services.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pwi.dao.product.ProductDAO;
 import com.pwi.domain.product.Product;
 import com.pwi.factory.DomainFactory;
@@ -11,8 +13,9 @@ import com.pwi.services.base.ServiceBase;
 import com.pwi.services.framework.annotations.ServiceMethod;
 import com.pwi.services.product.dto.ProductDTO;
 import com.pwi.services.product.dto.ProductOutDTO;
-
-public class ProductService extends ServiceBase
+import com.pwi.services.product.validate.ProductValidator;
+@Service
+public class ProductService extends ProductValidator
 {
 	/***
 	 * This method called to fetch the information of product
@@ -46,15 +49,18 @@ public class ProductService extends ServiceBase
 	@ServiceMethod(name = "SaveProduct")
 	public IResponseHandler saveProduct(ProductDTO dto)
 	{
-		ProductOutDTO outDTO = new ProductOutDTO();
 		
-		Product product = DomainFactory.getInstance().newProduct();
-	
-		assemble(dto,product);
+		if(validate(dto))
+		{
+			Product product = DomainFactory.getInstance().newProduct();
+			
+			assemble(dto,product);
+			
+			getSession().persist(product);
+		}
 		
-		getSession().persist(product);
 		
-		return outDTO;
+		return dto;
 	}
 	
 	/***
@@ -67,15 +73,17 @@ public class ProductService extends ServiceBase
 	@ServiceMethod(name = "UpdateProduct")
 	public IResponseHandler updateProduct(ProductDTO dto)
 	{
-		ProductOutDTO outDTO = new ProductOutDTO();
+			
+		if(validate(dto))
+		{
+			Product product = ProductDAO.getInstance(getSession()).findByPrimaryKey(dto.getProductID());
+			
+			assemble(dto,product);
+			getSession().update(product);
 		
-		
-		Product product = ProductDAO.getInstance(getSession()).findByPrimaryKey(dto.getProductID());
-	
-		assemble(dto,product);
-		getSession().update(product);
-		
-		return outDTO;
+		}
+			
+		return dto;
 	}
 	
 	/***

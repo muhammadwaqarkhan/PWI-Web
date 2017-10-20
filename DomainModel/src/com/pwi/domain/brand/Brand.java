@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -18,6 +20,7 @@ import org.hibernate.annotations.NamedQuery;
 
 import com.pwi.domain.branch.Branch;
 import com.pwi.domain.brand.product.BrandProduct;
+import com.pwi.domain.company.Company;
 /**
  * Holds all data which is relevant to Company 
  *  @author Waqar Contact 03346100977
@@ -67,11 +70,16 @@ public class Brand {
 	private String brandName;
 	
 
+	@Column(name = "COMPANYID", insertable = false, updatable = false, nullable = false)
+	private Long companyID;
 
 	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BrandProduct> brandProduct				= null;
 	
 	
+	@OneToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "companyID", referencedColumnName = "companyID")
+	private Company				company					= null;
 	
 	/**
 	 * Initializer for use by application code when constructing a new object for insertion into persistent store. 
@@ -126,6 +134,22 @@ public class Brand {
 
 	public void setBrandProduct(List<BrandProduct> brandProduct) {
 		this.brandProduct = brandProduct;
+	}
+
+	public Long getCompanyID() {
+		return companyID;
+	}
+
+	public void setCompanyID(Long companyID) {
+		this.companyID = companyID;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 

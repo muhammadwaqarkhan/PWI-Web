@@ -47,6 +47,9 @@
 	<classpathentry kind="lib" path="/BaseJar/spring311/org.springframework.web.portlet-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/spring311/org.springframework.web.servlet-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/spring311/org.springframework.web.struts-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/hibernate/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/hibernate/slf4j-log4j12-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/hibernate/slf4j.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/apache-logging-log4j.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/cglib-2.2.jar"/>
@@ -56,11 +59,8 @@
 	<classpathentry kind="lib" path="/BaseJar/hibernate/hibernate-core-4.3.0.beta1.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/hibernate3.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/javassist-3.12.0.GA.jar"/>
-	<classpathentry kind="lib" path="/BaseJar/hibernate/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="/BaseJar/hibernate/slf4j-api-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/BaseJar/hibernate/slf4j-log4j12-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/BaseJar/hibernate/slf4j.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/jboss-logging-3.1.0.GA.jar"/>
 	<classpathentry kind="lib" path="/BaseJar/hibernate/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/BaseJar/hibernate/jta-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

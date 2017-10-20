@@ -1,33 +1,21 @@
 package com.unit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.easymock.EasyMock;
-import org.glassfish.jersey.servlet.WebConfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.easymock.annotation.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.pwi.interfaces.IResponseHandler;
 import com.pwi.services.branch.BranchService;
 import com.pwi.services.branch.dto.BranchDTO;
-import com.pwi.services.branch.dto.BranchOutDTO;
 import com.pwi.services.hibernate.HibernateUtil;
 import com.pwi.spring.SpringApplicationContext;
 
@@ -36,13 +24,11 @@ import com.pwi.spring.SpringApplicationContext;
         "file:src/hibernate.cfg.xml"})
 public class TEST_Branch 
 {
-	@Mock
-	static
-	SessionFactory factory;
-	BranchService branchService ;
+	 @Mock
+	 static SessionFactory factory;
 	 static Session session;
 	 static Transaction transcation;
-	
+	 BranchService branchService ;
 	
 	@Before
 	public void setUp ()
@@ -81,7 +67,7 @@ public class TEST_Branch
 
 		IResponseHandler response = branchService.fetchBranch();
 		
-		assertTrue(response.getErrorCode() == 0 && ((BranchOutDTO)response).getBranches().size() >0);
+		assertTrue(response.getErrorCode() == 0);
 	}
 	
 	

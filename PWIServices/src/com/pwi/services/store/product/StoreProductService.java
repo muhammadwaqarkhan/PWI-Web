@@ -2,6 +2,8 @@ package com.pwi.services.store.product;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pwi.dao.product.ProductDAO;
 import com.pwi.dao.store.StoreDAO;
 import com.pwi.dao.store.product.StoreProductDAO;
@@ -18,7 +20,7 @@ import com.pwi.services.store.StoreService;
 import com.pwi.services.store.dto.StoreOutDTO;
 import com.pwi.services.store.product.dto.StoreProductDTO;
 import com.pwi.services.store.product.dto.StoreProductOutDTO;
-
+@Service
 public class StoreProductService extends ServiceBase
 {
 	/***

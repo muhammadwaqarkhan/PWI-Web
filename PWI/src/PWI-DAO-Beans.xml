@@ -23,7 +23,7 @@
 
 	<aop:aspectj-autoproxy />
 	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
  
        
        <bean id="branchDAO" class="com.pwi.dao.branch.BranchDAO" ></bean>

@@ -16,6 +16,7 @@ import com.pwi.services.framework.ServiceExecutor;
 import com.pwi.services.store.StoreService;
 import com.pwi.services.store.dto.StoreDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 
 public class StorePageHandler  implements IPageHandler {
 
@@ -33,7 +34,8 @@ public class StorePageHandler  implements IPageHandler {
 		StoreDTO dto  = new StoreDTO();
 	
 		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BranchStoreService();
+	
+		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("branchStoreService");
 		Object object = executor.callService(service, "FetchBranchStore", dto);
 		if(object instanceof BranchStoreDTO)
 		{

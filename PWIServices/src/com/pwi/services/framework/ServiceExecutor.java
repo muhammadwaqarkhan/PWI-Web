@@ -69,7 +69,11 @@ public class ServiceExecutor
 			else
 				response =  (IResponseHandler) method.invoke (service);
 		
-			transcation.commit();
+			if(response.getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+				transcation.commit();
+			else
+				transcation.rollback();
+			
 			
 		}
 		catch (Exception exception)

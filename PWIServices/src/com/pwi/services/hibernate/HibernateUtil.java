@@ -14,6 +14,7 @@ public class HibernateUtil
    	 *            
    	 * @return SessionFactory 
    	 */
+	@SuppressWarnings("deprecation")
 	private static SessionFactory buildSessionFactory() 
 	{
 		Configuration cfg=new Configuration();    

@@ -15,6 +15,7 @@ import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
 import com.pwi.services.user.UserAccountsService;
 import com.pwi.services.user.dto.UserAccountsInDTO;
 import com.pwi.services.user.dto.UserAccountsOutDTO;
+import com.pwi.spring.SpringApplicationContext;
 
 public class LoginPageHandler   implements IPageHandler {
 
@@ -54,10 +55,10 @@ public class LoginPageHandler   implements IPageHandler {
 		inDTO.setUsername(userName);
 		inDTO.setPassword(password);
 
-		ServiceBase service = new UserAccountsService();
 		
+		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("userAccountsService");
 		Object object = executor.callService(service, "VarifedUser", inDTO);
-		if(object instanceof IResponseHandler )
+		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
 		{
 			return (UserAccountsOutDTO)object;
 		}

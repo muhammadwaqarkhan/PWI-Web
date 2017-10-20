@@ -2,6 +2,8 @@ package com.pwi.services.store;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pwi.dao.branch.BranchDAO;
 import com.pwi.dao.store.StoreDAO;
 import com.pwi.domain.address.Address;
@@ -13,7 +15,7 @@ import com.pwi.services.base.ServiceBase;
 import com.pwi.services.framework.annotations.ServiceMethod;
 import com.pwi.services.store.dto.StoreDTO;
 import com.pwi.services.store.dto.StoreOutDTO;
-
+@Service
 public class StoreService  extends ServiceBase
 {
 	/***

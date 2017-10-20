@@ -81,6 +81,24 @@
 		
 		
 		
+		var storeOptions = document.getElementById('store');
+		for (var i = 0; i < storeOptions.options.length; i++) {
+		    if (storeOptions.options[i].text === store) {
+		    	storeOptions.selectedIndex = i;
+		        break;
+		    }
+		}
+		
+		var productsOptions = document.getElementById('products');
+		for (var i = 0; i < productsOptions.options.length; i++) {
+		    if (productsOptions.options[i].text === products) {
+		    	productsOptions.selectedIndex = i;
+		        break;
+		    }
+		}
+		
+		
+		
 		
 	});
    	
@@ -110,7 +128,7 @@
 								<tr>
 									<td><label><b>Store</b></label></td>
 									<td>
-										<select id="store" name="store">
+										<select id="store" name="store" irequired="1" >
 											<option value="-1">Select Store</option>
 											<c:forEach var="record" items="${stores.stores}">
 												<option value="${record.storeID}"><c:out value="${record.storeName}"></c:out></option>
@@ -123,7 +141,7 @@
 								<tr>
 									<td><label><b>Products</b></label></td>
 									<td>
-										<select id="products" name="products">
+										<select id="products" name="products" irequired="1" >
 											<option value="-1">Select Products</option>
 											<c:forEach var="productrecord" items="${products.products}">
 												<option value="${productrecord.productID}"><c:out value="${productrecord.productName}"></c:out></option>
@@ -135,20 +153,20 @@
 								
 								<tr>
 									<td><label><b>In Stock</b></label></td>
-									<td><input type="checkbox" name="instock" value="1"> </td>
+									<td><input type="checkbox" name="instock" value="1" irequired="1" > </td>
 								</tr>
 								<tr>
 									<td><label><b>In Transit</b></label></td>
-									<td><input type="text" id="InTransit" name="InTransit"  value=""></td>
+									<td><input type="text" id="InTransit" name="InTransit"  value="" irequired="1" imask="alphanumericplusspecial"></td>
 								
 								</tr>
 								<tr>
 									<td><label><b>Quantity</b></label></td>
-									<td><input type="text" id="quantity" name="quantity"  value=""></td>
+									<td><input type="text" id="quantity" name="quantity"  value="" irequired="1" imask="alphanumericplusspecial"></td>
 								</tr>
 								<tr>
 									<td><label><b>Reorder Point</b></label></td>
-									<td><input type="text" id="reorderPoint" name="reorderPoint"  value=""></td>
+									<td><input type="text" id="reorderPoint" name="reorderPoint"  value="" irequired="1" imask="alphanumericplusspecial"></td>
 								</tr>
 								
 								
@@ -162,8 +180,8 @@
 							<input type="hidden" id="selectedID" name="selectedID" value=""/>
 						</div>
 						
-						<input type="submit" value="Add Store" name="Save" onclick="setAction (1);">
-						<input type="button" id="Delete" name="Delete" value="Delete Store" onclick="setAction (2);">
+						<input type="submit" value="Add Store" name="Save" onclick="return setAction (1);">
+						<input type="button" id="Delete" name="Delete" value="Delete Store" onclick="return  setAction (2);">
 								
 					
 						<br/>

@@ -1,10 +1,15 @@
 package com.pwi.domain.company;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -12,6 +17,8 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import com.pwi.domain.branch.Branch;
+import com.pwi.domain.brand.Brand;
+import com.pwi.domain.store.Store;
 /**
  * Holds all data which is relevant to comapny 
  *  @author Waqar Contact 03346100977
@@ -44,6 +51,14 @@ public class Company
 	@Id
 	private Long companyID;
 	
+	
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Branch> branches				= null;
+	
+	
+	
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Brand> brands				= null;
 	
 	/**
 	 * Fore name.
@@ -102,6 +117,14 @@ public class Company
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<Branch> getBranches() {
+		return branches;
+	}
+
+	public void setBranches(List<Branch> branches) {
+		this.branches = branches;
 	}
 
 

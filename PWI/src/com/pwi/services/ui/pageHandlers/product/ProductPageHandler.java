@@ -15,6 +15,7 @@ import com.pwi.services.product.ProductService;
 import com.pwi.services.product.dto.ProductDTO;
 import com.pwi.services.product.dto.ProductOutDTO;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 
 public class ProductPageHandler  implements IPageHandler {
 
@@ -30,7 +31,8 @@ public class ProductPageHandler  implements IPageHandler {
 	{
 
 		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new ProductService();
+		
+		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("productService");
 		Object object = executor.callService(service, "FetchProduct", new ProductDTO());
 		if(object instanceof ProductOutDTO)
 		{
@@ -69,7 +71,7 @@ public class ProductPageHandler  implements IPageHandler {
 		ServiceBase service = new ProductService();
 		Object object = executor.callService(service, "SaveProduct", dto);
 		
-		if(object instanceof ProductOutDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
 		{
 			return getProducts(request);
 		}
@@ -109,7 +111,7 @@ public class ProductPageHandler  implements IPageHandler {
 		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
 		ServiceBase service = new ProductService();
 		Object object = executor.callService(service, "UpdateProduct", dto);
-		if(object instanceof ProductOutDTO && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
+		if(object instanceof IResponseHandler && ((IResponseHandler)object).getErrorCode() == FrameworkReasonCodes.ERROR_NO)
 		{
 			return getProducts(request);
 		}

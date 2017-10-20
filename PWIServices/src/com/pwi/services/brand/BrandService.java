@@ -2,6 +2,8 @@ package com.pwi.services.brand;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pwi.dao.brand.BrandDAO;
 import com.pwi.domain.brand.Brand;
 import com.pwi.interfaces.IResponseHandler;
@@ -9,7 +11,7 @@ import com.pwi.services.base.ServiceBase;
 import com.pwi.services.brand.dto.BrandDTO;
 import com.pwi.services.brand.dto.BrandOutDTO;
 import com.pwi.services.framework.annotations.ServiceMethod;
-
+@Service
 public class BrandService extends ServiceBase 
 {
 	

@@ -1,6 +1,8 @@
 package com.pwi.dao.base;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 
@@ -12,6 +14,8 @@ public  abstract class BaseDAO
 {
 	
 	private Session session;
+
+
 
    protected void init(Session session)
    {
@@ -31,6 +35,8 @@ public  abstract class BaseDAO
     {
         return this.session;
      }
+
+
 
 	
 }

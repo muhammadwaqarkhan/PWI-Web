@@ -15,6 +15,7 @@ import com.pwi.services.branch.dto.BranchDTO;
 import com.pwi.services.branch.dto.BranchOutDTO;
 import com.pwi.services.framework.ServiceExecutor;
 import com.pwi.services.ui.pageHandlers.base.BasePageHandler;
+import com.pwi.spring.SpringApplicationContext;
 @Component
 public class BranchPageHandler  implements IPageHandler {
 
@@ -32,7 +33,7 @@ public class BranchPageHandler  implements IPageHandler {
 		
 	
 		ServiceExecutor executor=BasePageHandler.getServiceExecutor();
-		ServiceBase service = new BranchService();
+		ServiceBase service = (ServiceBase)SpringApplicationContext.getApplicationContext().getBean("branchService");
 		Object object = executor.callService(service, "FetchBranch", new BranchDTO());
 		if(object instanceof BranchOutDTO)
 		{
