@@ -27,12 +27,14 @@ import com.pwi.domain.store.Store;
  * 
  * @author Waqar Contact 03346100977
  */
-@NamedQueries({
-		@NamedQuery(name = Branch.Queries.READ_BY_ALL_BRANCHS, query = "from com.pwi.domain.branch.Branch where status=:status"),//
+@NamedQueries({ @NamedQuery(name = Branch.Queries.READ_BY_ALL_BRANCHS,//
+query = "from com.pwi.domain.branch.Branch where status=:status order by branchName"),//
 
-		@NamedQuery(name = Branch.Queries.READ_BY_PRIMARY_KEY, query = "from com.pwi.domain.branch.Branch where branchID=:branchID"),//
+		@NamedQuery(name = Branch.Queries.READ_BY_PRIMARY_KEY,//
+		query = "from com.pwi.domain.branch.Branch where branchID=:branchID"),//
 
-		@NamedQuery(name = Branch.Queries.READ_BY_BRANCH_NAME, query = "from com.pwi.domain.branch.Branch where branchName=:branchName")
+		@NamedQuery(name = Branch.Queries.READ_BY_BRANCH_NAME,//
+		query = "from com.pwi.domain.branch.Branch where branchName=:branchName")
 
 })
 @Entity()

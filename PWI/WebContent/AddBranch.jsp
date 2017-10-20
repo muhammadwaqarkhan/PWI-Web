@@ -98,7 +98,7 @@
 			<div id="desktop">
 				<h1 >${companyName}</h1>
 				<form id="addBranch" action="ApplicationServlet" method="post">
-				<table>
+						<table>
 								<tr>
 									<td><label for="reportPeriod"><b>Branch Name:</b></label></td>
 									<td><input type="text" id="branchName" name="branchName" irequired="1" imask="alphanumericplusspecial"  value=""></td>
