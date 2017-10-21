@@ -1,4 +1,24 @@
 # PWI-Web PWI (Product Warehouse & Inventory) System:
+
+Product Configuration
+DB: you need to import "PWI" mySQL database, which is pleaced at BaseJar project under database folder.
+
+hibernate.cfg.xml is configuration file where you can put DB username and password like below
+<property name="hibernate.connection.password"></property>
+<property name="hibernate.connection.username">root</property>
+
+Setup Tomcat:
+once you take sync from  https://github.com/muhammadwaqarkhan/PWI-Web.git URL you need to setup tomcat7.
+ 1) goto tomcat class path add bin folder  of DomainModel project
+ 1) goto tomcat class path add bin folder  of PWIServices project
+ 2) goto tomcat class path and add AOP,hibernate,JarStore,jaxws,jpa2,rest and both spring Jars
+ 
+start tomcat server and hit http://localhost:8080/PWI/login.jsp 
+application login is:
+	User 	= Vantiboli
+	Password= Vantiboli
+
+
 This product consists of four projects
 1)	Base Jar
 2)	Domain Model
