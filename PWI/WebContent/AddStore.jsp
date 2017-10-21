@@ -96,10 +96,10 @@
 
 	<jsp:include page="Header.jsp" /> 
 
-	<div id="main">
+<div class="container" style="margin-top:80px">
 	
-	
-		<div id="page-wrap" align="center">
+		
+		<div class="col-md-8 col-md-offset-2">
 			
 			<br />
 			<br />

@@ -33,11 +33,7 @@
 							<td>
 								
 							</td>
-							<td>
-								<div id="ssnodivor">
-									<label for="username">OR</label>
-								</div> 
-							</td>
+							
 						</tr>
 						
 						<tr>

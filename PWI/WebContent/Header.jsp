@@ -6,16 +6,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- <link href="resources/css/AdminDesktop.css" rel="stylesheet" type="text/css"> -->
+
+
+
 </head>
 <body>
 	<div id="HeaderDiv">
 	
-		<p style="margin-left: 100px ">
-			<div id="iErrorPanel" style="margin-left: -100; color: red;" name="iErrorPanel">${iErrorPanel}</div>
-		<div class="alert alert-success fade in text-center blinking"
-			 id="alertSuccess">
-			 ${isuccessPanel}
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<div class="col-md-6 col-md-offset-3">
+			<div id="iErrorPanel" style="color: red;" name="iErrorPanel">${iErrorPanel}</div>
+			<div class="alert alert-success fade in text-center blinking"
+				 id="alertSuccess">
+				 ${isuccessPanel}
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			</div>
 		</div>
 		<div id="menu">
 		    <ul class="menu">
@@ -59,8 +63,8 @@
 		        </li>
 		    </ul>
 		</div>
-
-		</p>
+	<br style="margin-bottom:80px"/>
+		
 
 
 	</div>

@@ -12,6 +12,7 @@ import com.pwi.domain.user.UserAccounts;
 import com.pwi.interfaces.IResponseHandler;
 import com.pwi.services.base.ServiceBase;
 import com.pwi.services.framework.annotations.ServiceMethod;
+import com.pwi.services.framework.exceptions.PWIException;
 import com.pwi.services.user.dto.UserAccountsInDTO;
 import com.pwi.services.user.dto.UserAccountsOutDTO;
 import com.pwi.services.user.dto.UserDesktopDTO;
@@ -35,8 +36,8 @@ public class UserAccountsService extends ServiceBase {
 		UserAccounts user = UserAccountsDAO.getInstance(getSession()).readUser(dto.getUsername(), dto.getPassword());
 
 		if (user == null) {
-			outDTO.setErrorCode(FrameworkReasonCodes.GENERAL_ERROR);
-			outDTO.setErrorString("invalid user details");
+			throw new PWIException(new Exception(), "invalid user details", FrameworkReasonCodes.GENERAL_ERROR);
+
 		} else {
 
 			List<Branch> branches = BranchDAO.getInstance(getSession()).readBranches();

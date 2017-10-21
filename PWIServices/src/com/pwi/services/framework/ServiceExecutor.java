@@ -75,16 +75,22 @@ public class ServiceExecutor {
 			else
 				transcation.rollback();
 
-		} catch (Exception exception) {
+		} catch (PWIException exception) {
 
 			transcation.rollback();
 			response = new BaseOutDTO();
 			response.setErrorCode(FrameworkReasonCodes.EXECUTION_ERROR);
-			response.setErrorString(exception.getStackTrace().toString());
+			response.setErrorString(exception.getMessage());
 
 			return response;
 			// throw new
 			// PWIException(exception,exception.getMessage(),FrameworkReasonCodes.EXECUTION_ERROR);
+		} catch (Exception exception) {
+			transcation.rollback();
+			response = new BaseOutDTO();
+			response.setErrorCode(FrameworkReasonCodes.EXECUTION_ERROR);
+			response.setErrorString(exception.getMessage());
+
 		} finally {
 			session.close();
 		}

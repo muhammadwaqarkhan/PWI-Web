@@ -13,7 +13,8 @@
 <title>Desktop</title>
 
 <!-- CSS -->
-<link href="resources/css/demo_page.css" rel="stylesheet" type="text/css" />
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="resources//css/demo_page.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/demo_table.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/demo_table_jui.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" media="all" />
@@ -24,9 +25,10 @@
 
 <link type="text/css" href="resources/css/menu.css" rel="stylesheet" />
 <!-- <script type="text/javascript" src="resources/javascript/jquery_dropMenu.js"></script> -->
-<script type="text/javascript" src="resources/javascript/menu.js"></script>
+
 
 <!-- Scripts -->
+
 <script src="resources/javascript/jquery-ui-1.10.4/tests/jquery-1.9.1.js" type="text/javascript"></script>
 <script src="resources/javascript/jquery-ui-1.10.4/ui/jquery-ui.js" type="text/javascript"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -35,12 +37,12 @@
 <script src="resources/javascript/AdminDesktop.js" type="text/javascript"></script>
 <script	src="resources/javascript/jquery-ui-1.10.4/ui/minified/jquery.ui.accordion.min.js" type="text/javascript"></script>
 <script src="resources/javascript/jquery-ui-1.10.4/ui/jquery.ui.accordion.js" type="text/javascript"></script>
-<script type="text/javascript" src="AddProduct.js"></script>
+<script type="text/javascript" src="AddBranch.js"></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/interface/BranchAjaxHandler.js'></script>
 <script type="text/javascript" src="resources/javascript/validation/IValidation.js"></script>
-
-
-
 <script type="text/javascript" src="resources/javascript/menu.js"></script>	
+
 <script>
  
   
@@ -53,10 +55,10 @@
 
 	<jsp:include page="Header.jsp" /> 
 
-	<div id="main">
+	<div class="container" style="margin-top:80px">
 	
 		
-		<div id="page-wrap" align="center">
+		<div class="col-md-8 col-md-offset-2">
 			
 			<br />
 			<br />
@@ -74,15 +76,15 @@
 									<thead>
 										<tr>
 											
-											<th><u>Store Name</u></th>
-											<th><u>Item</u></th>
-											<th><u>Size</u></th>
-											<th><u>In Stock</u></th>
-											<th><u>Avl.Quantity</u></th>
-											<th><u>In Transit</u></th>
-											<th><u>MOQ</u></th>
-											<th><u>QPB</u></th>
-											<th><u>Reorder point</u></th>										
+											<th>Store Name</th>
+											<th>Item</th>
+											<th>Size</th>
+											<th>In Stock</th>
+											<th>Avl.Quantity</th>
+											<th>In Transit</th>
+											<th>MOQ</th>
+											<th>QPB</th>
+											<th>Reorder point</th>										
 											
 										</tr>
 									</thead>
