@@ -4,8 +4,8 @@ Product Configuration
 DB: you need to import "PWI" mySQL database, which is pleaced at BaseJar project under database folder.
 
 hibernate.cfg.xml is configuration file where you can put DB username and password like below
-<property name="hibernate.connection.password"></property>
-<property name="hibernate.connection.username">root</property>
+ property = hibernate.connection.password=''
+ property = hibernate.connection.username=root
 
 Setup Tomcat:
 once you take sync from  https://github.com/muhammadwaqarkhan/PWI-Web.git URL you need to setup tomcat7.
